@@ -1,20 +1,22 @@
-import app from '../src/app'
+import MainController from '../src/controllers/MainController'
 
-describe('app', () => {
 
-  describe('MainController', () => {
-    let ctrl;
+describe('MainController', () => {
+    let ctrl
+
+    let location;
+
+    beforeEach(module(function($provide) {
+        $provide.factory('MainController', function($location) {
+            location = $location;
+        });
+    }));
 
     beforeEach(() => {
-      angular.mock.module(app);
-
-      angular.mock.inject(($controller) => {
-        ctrl = $controller('MainController', {});
-      });
+        ctrl = new MainController()
     });
-
+    console.log(ctrl);
     it('should contain the starter url', () => {
-      expect(MainController.active).toBe('');
+        expect(ctrl.active).toBe('');
     });
-  });
 });

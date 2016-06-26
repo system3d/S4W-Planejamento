@@ -1,5 +1,5 @@
 export default class MainController {
-	constructor($scope, $location) {
+	constructor($location) {
 		let activeTemp = $location.$$url
 		activeTemp = activeTemp.replace('/','')
 		this.active = activeTemp === '' ? 'home' : activeTemp
@@ -14,4 +14,4 @@ export default class MainController {
 	}
 }
 
-MainController.$inject = ['$scope','$location']
+MainController.$inject = ['$location']
