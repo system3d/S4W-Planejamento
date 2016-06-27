@@ -11,7 +11,7 @@ function routing($urlRouterProvider, $locationProvider, $stateProvider) {
 			abstract: true,
 			views: {
 				'layout': {
-					template: require('./views/layout.jade')()
+					template: require('./views/layout.jade')
 				}
 			}
 		})
@@ -20,7 +20,7 @@ function routing($urlRouterProvider, $locationProvider, $stateProvider) {
 			parent: 'layout',
 			views: {
 				"content@layout": {
-					template: require('./views/home.jade')(),
+					template: require('./views/home.jade'),
 					controller: 'HomeController',
 					controllerAs: 'home'
 				}
@@ -31,7 +31,7 @@ function routing($urlRouterProvider, $locationProvider, $stateProvider) {
 			parent: 'layout',
 			views: {
 				"content@layout": {
-					template: require('./views/cronograma.jade')(),
+					template: require('./views/cronograma.jade'),
 					controller: 'CronoController',
 					controllerAs: 'crono'
 				}
@@ -42,7 +42,7 @@ function routing($urlRouterProvider, $locationProvider, $stateProvider) {
 			parent: 'layout',
 			views: {
 				"content@layout": {
-					template: require('./views/gantt.jade')(),
+					template: require('./views/gantt.jade'),
 					controller: 'GanttController',
 					controllerAs: 'gantt'
 				}
