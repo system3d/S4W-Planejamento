@@ -47,6 +47,26 @@ function routing($urlRouterProvider, $locationProvider, $stateProvider) {
 					controllerAs: 'gantt'
 				}
 			}
+		}).state('entrega', {
+			url: '/entrega',
+			parent: 'layout',
+			views: {
+				"content@layout": {
+					template: require('./views/entrega.jade'),
+					controller: 'EntregaController',
+					controllerAs: 'entrega'
+				}
+			}
+		}).state('avanco', {
+			url: '/avanco',
+			parent: 'layout',
+			views: {
+				"content@layout": {
+					template: require('./views/avanco.jade'),
+					controller: 'AvancoController',
+					controllerAs: 'avanco'
+				}
+			}
 		});
 }
 

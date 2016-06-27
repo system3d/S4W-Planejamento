@@ -1,30 +1,41 @@
-.planejamento-header
-  width 100%
-  height 40px
-  background-color #3c8dbc
-  ul
-    list-style none
+.header-wrapper
+  margin -15px -15px 10px -15px !important
+  .planejamento-header
+    width 100%
     height 40px
-    li
-      display inline-block
-      border-right: 0.5px solid rgba(230,230,230,0.3);
-      float left
-      height 40px
-      &:last-child
-        border-right none
-      &:hover
-        	background-color #286090
-        	border-color rgba(230,230,230,0.4)
-        	cursor pointer
-      a
-        display table-cell
-        vertical-align middle
-        height 40px
-        text-align center
-        padding 5px 10px
-        color #fff
-        span
-          margin-left 3px
-  .active
-    background-color #286090
-    border-color rgba(230,230,230,0.4)
+    background-color #3c8dbc
+    text-align center
+    ul
+      list-style none
+      height 100%
+      @media screen and (max-width: 500px)
+        display: inline-block
+        padding 0
+      li
+        display inline-block
+        border-right: 0.5px solid rgba(230,230,230,0.3);
+        float left
+        height 100%
+        &:last-child
+          border-right none
+        &:hover
+          	background-color #286090
+          	border-color rgba(230,230,230,0.4)
+          	cursor pointer
+        a
+          display table-cell
+          vertical-align middle
+          height 40px
+          text-align center
+          padding 5px 10px
+          color #fff
+          @media screen and (max-width: 500px)
+            span
+              display none
+            i
+              font-size 18px
+          span
+            margin-left 3px
+    .active
+      background-color #286090
+      border-color rgba(230,230,230,0.4)

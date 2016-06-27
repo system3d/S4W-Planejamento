@@ -1,0 +1,18 @@
+.navigation-wrapper(ng-show="main.active !== 'home' ")
+  nav.navbar.navbar-static-top
+    form.form-inline(role='form')
+      .navbar-form.navbar-left
+        .form-group
+          span Obra:&nbsp;
+          select.form-control.input-sm(ng-options="obra.nome for obra in main.Obras track by obra.id", ng-model="main.obra", ng-change='main.obraChanged()')
+        .form-group(ng-show='main.Etapas')
+          span Etapa:&nbsp;
+          select.form-control.input-sm(ng-options="etapa.codigo for etapa in main.Etapas track by etapa.id", ng-model="main.etapa")
+        .form-group(ng-show="main.active !== 'gantt' && main.active !== 'cronograma' ")
+          span De:&nbsp;
+          input.form-control.input-sm(type='text')
+        .form-group(ng-show="main.active !== 'gantt' && main.active !== 'cronograma' ")
+          span Até:&nbsp;
+          input.form-control.input-sm(type='text')
+        .form-group 
+          button.btn.btn-sm.btn-primary(ng-click='main.load()', title='Carregar') Carregar

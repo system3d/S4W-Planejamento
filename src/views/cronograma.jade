@@ -1,13 +1,23 @@
-.box
+- let estages = ['Projeto', 'Fabricação', 'Expedição', 'Montagem'];
+.box.box-primary
   .box-body
     table.display.table.table-hover.stripe(cellspacing="0" width="100%")
       thead
         tr
-          th Teste
-          th Teste2
-          th TEste3
+          th Obra 
+          th Etapa
+          each val in estages
+            th= val + " - Início"
+            th= val + " - Final"
       tbody
-        tr
-          td Testedd
-          td GDTYEFEFEF
-          td vytdyetvfr
+        tr(ng-repeat="cr in crono.Cronogramas")
+          td [[cr.obra]]
+          td [[cr.etapa]]
+          td [[cr.cronograma.projeto.inicio]]
+          td [[cr.cronograma.projeto.final]]
+          td [[cr.cronograma.fabricacao.inicio]]
+          td [[cr.cronograma.fabricacao.final]]
+          td [[cr.cronograma.expedicao.inicio]]
+          td [[cr.cronograma.expedicao.final]]
+          td [[cr.cronograma.montagem.inicio]]
+          td [[cr.cronograma.montagem.final]]

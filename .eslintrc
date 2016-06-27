@@ -28,6 +28,9 @@
     "no-unused-vars": 1,
     "no-underscore-dangle": 0,
     "no-alert": 1,
-    "no-lone-blocks": 0
+    "no-lone-blocks": 0,
+    "angular/document-service": 0,
+    "angular/no-service-method": 0,
+    "angular/log": 0
   }
 }

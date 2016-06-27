@@ -1,22 +1,23 @@
-header.planejamento-header
-  ul
-    li(ng-class='{active: main.active === "home"}' ng-click="main.changeActive('home')")
-      a(ui-sref='home') 
-        i.fa.fa-home
-        span Home
-    li(ng-class='{active: main.active === "cronograma"}' ng-click="main.changeActive('cronograma')")
-      a(ui-sref='cronograma') 
-        i.fa.fa-calendar
-        span Cronograma
-    li(ng-class='{active: main.active === "gantt"}'  ng-click="main.changeActive('gantt')")
-      a(ui-sref='gantt')
-        i.fa.fa-bars
-        span Gantt
-    li(ng-class='{active: main.active === "avanco"}'  ng-click="main.changeActive('avanco')") 
-      a(ui-sref='avanco')
-        i.fa.fa-line-chart
-        span Avanço
-    li(ng-class='{active: main.active === "entrega"}'  ng-click="main.changeActive('entrega')")
-      a(ui-sref='entrega')
-        i.fa.fa-bar-chart
-        span Entrega
+.header-wrapper
+  header.planejamento-header
+    ul
+      li(ng-class='{active: main.active === "home"}' ng-click="main.changeActive('home')")
+        a(ui-sref='home', title='Home') 
+          i.fa.fa-home
+          span Home
+      li(ng-class='{active: main.active === "cronograma"}' ng-click="main.changeActive('cronograma')")
+        a(ui-sref='cronograma', title='Cronograma') 
+          i.fa.fa-calendar
+          span Cronograma
+      li(ng-class='{active: main.active === "gantt"}'  ng-click="main.changeActive('gantt')")
+        a(ui-sref='gantt', title='Gantt')
+          i.fa.fa-bars
+          span Gantt
+      li(ng-class='{active: main.active === "avanco"}'  ng-click="main.changeActive('avanco')") 
+        a(ui-sref='avanco', title='Avanço')
+          i.fa.fa-line-chart
+          span Avanço
+      li(ng-class='{active: main.active === "entrega"}'  ng-click="main.changeActive('entrega')")
+        a(ui-sref='entrega', title='Entrega')
+          i.fa.fa-bar-chart
+          span Entrega

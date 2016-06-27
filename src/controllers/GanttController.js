@@ -1,5 +1,7 @@
 export default class GanttController {
-  constructor() {
-
+  constructor(navService) {
+    this.navService = navService
   }
 }
+
+GanttController.$inject = ['navService']

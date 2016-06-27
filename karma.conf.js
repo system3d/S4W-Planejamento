@@ -6,6 +6,7 @@ module.exports = function(config) {
 		autoWatch: true,
     singleRun: false,
 		files: [
+			'node_modules/babel-es6-polyfill/browser-polyfill.min.js',
 			'test/tests.webpack.js'
 		],
 		preprocessors: {
@@ -16,7 +17,7 @@ module.exports = function(config) {
              module: {
 							 loaders: [{
 								test: /\.js$/,
-								loaders: ['ng-annotate', 'babel'],
+								loaders: [ 'babel', 'ng-annotate'],
 								exclude: /node_modules/
 							}, {
 								test: /\.html$/,

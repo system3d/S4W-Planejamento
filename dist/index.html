@@ -16,13 +16,13 @@
     <link rel="stylesheet" href="template/css/style.css">
     <link rel="stylesheet" href="template/css/datatables/dataTables.bootstrap.min.css">
     <style>
-        .wrapper{
+        .wrapper {
             background-color: #F7F7F7 !important;
         }
     </style>
 </head>
 
-<body class="skin-green">
+<body class="skin-black">
     <div class="wrapper">
 
         <header class="main-header">
@@ -59,7 +59,7 @@
                         <p>Mamão Papaia</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Hercules</a>
                     </div>
-                </div>
+                </div>,
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -67,12 +67,13 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
-            <!-- CONTENT HERE -->
+            <section class="content">
 
-            <div class="planejamento-wrapper" ng-app='PlanejamentoApp' ng-controller="MainController as main">
-                <div ui-view="layout"></div>
-            </div>
+                <div class="planejamento-wrapper" ng-app='PlanejamentoApp' ng-controller="MainController as main">
+                    <div ui-view="layout"></div>
+                </div>
 
+            </section>
 
         </div>
         <!-- /.content-wrapper -->
