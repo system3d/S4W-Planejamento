@@ -1,5 +1,5 @@
 - let estages = ['Projeto', 'Fabricação', 'Expedição', 'Montagem'];
-.box.box-primary
+.box.box-primary.box-crono
   .box-body
     table.display.table.table-hover.stripe(cellspacing="0" width="100%")
       thead
@@ -10,14 +10,22 @@
             th= val + " - Início"
             th= val + " - Final"
       tbody
-        tr(ng-repeat="cr in crono.Cronogramas")
+        tr(ng-repeat="cr in crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa}", ng-class='{touched: cr.touched}')
           td [[cr.obra]]
           td [[cr.etapa]]
-          td [[cr.cronograma.projeto.inicio]]
-          td [[cr.cronograma.projeto.final]]
-          td [[cr.cronograma.fabricacao.inicio]]
-          td [[cr.cronograma.fabricacao.final]]
-          td [[cr.cronograma.expedicao.inicio]]
-          td [[cr.cronograma.expedicao.final]]
-          td [[cr.cronograma.montagem.inicio]]
-          td [[cr.cronograma.montagem.final]]
+          td
+            bd-datepicker(ng-model='cr.cronograma.projeto.inicio', max-date="cr.cronograma.projeto.final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+          td
+            bd-datepicker(ng-model='cr.cronograma.projeto.final', max-date="false", min-date='cr.cronograma.projeto.inicio', bd-class="planejamento-input")
+          td
+            bd-datepicker(ng-model='cr.cronograma.fabricacao.inicio', max-date="cr.cronograma.fabricacao.final", min-date='false', bd-class="planejamento-input")
+          td 
+            bd-datepicker(ng-model='cr.cronograma.fabricacao.final', max-date="false", min-date='cr.cronograma.fabricacao.inicio', bd-class="planejamento-input")
+          td
+            bd-datepicker(ng-model='cr.cronograma.expedicao.inicio', max-date="cr.cronograma.expedicao.final", min-date='false', bd-class="planejamento-input")
+          td 
+            bd-datepicker(ng-model='cr.cronograma.expedicao.final', max-date="false", min-date='cr.cronograma.expedicao.inicio', bd-class="planejamento-input")
+          td
+            bd-datepicker(ng-model='cr.cronograma.montagem.inicio', max-date="cr.cronograma.montagem.final", min-date='false', bd-class="planejamento-input")
+          td
+            bd-datepicker(ng-model='cr.cronograma.montagem.final', max-date="false", min-date='cr.cronograma.montagem.inicio', bd-class="planejamento-input")

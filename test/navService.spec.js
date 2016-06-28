@@ -50,35 +50,19 @@ describe('Navigation Service', () => {
 			})
 	});
 
-	it("Should get Cronogramas of one Obra", function(done) {
+	it("Should get all Cronogramas despite what obra is selected", function(done) {
 		nav.setObra({
 			id: 1,
 			nome: 'Faroeste Cabloco'
 		})
 		nav.getCronogramas()
 			.then(cronos => {
-				expect(cronos.length).toBe(2)
+				expect(cronos.length).toBe(4)
 				done()
 			})
 	});
 
-	it("Should get Cronogramas of one Etapa", function(done) {
-		nav.setObra({
-			id: 1,
-			nome: 'Faroeste Cabloco'
-		})
-		nav.setEtapa({
-			id: 1,
-			codigo: 'DANCE'
-		})
-		nav.getCronogramas()
-			.then(cronos => {
-				expect(cronos.length).toBe(1)
-				done()
-			})
-	});
-
-	it("should set and return the flags", function () {
+	it("should set and return the flags", function() {
 		nav.setObra({
 			id: 1,
 			nome: 'Faroeste Cabloco'

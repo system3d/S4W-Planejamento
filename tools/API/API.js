@@ -156,7 +156,7 @@ const Cronogramas = [{
 		},
 		fabricacao: {
 			inicio: '2016-08-27',
-			final: '2016-079-12'
+			final: '2016-09-12'
 		},
 		expedicao: {
 			inicio: '2016-10-27',
@@ -180,7 +180,7 @@ const Cronogramas = [{
 		},
 		fabricacao: {
 			inicio: '2016-08-27',
-			final: '2016-079-12'
+			final: '2016-09-12'
 		},
 		expedicao: {
 			inicio: '2016-10-27',
@@ -204,7 +204,7 @@ const Cronogramas = [{
 		},
 		fabricacao: {
 			inicio: '2016-08-27',
-			final: '2016-079-12'
+			final: '2016-09-12'
 		},
 		expedicao: {
 			inicio: '2016-10-27',
@@ -228,7 +228,7 @@ const Cronogramas = [{
 		},
 		fabricacao: {
 			inicio: '2016-08-27',
-			final: '2016-079-12'
+			final: '2016-09-12'
 		},
 		expedicao: {
 			inicio: '2016-10-27',
@@ -262,15 +262,8 @@ class API {
 
 	static getCronogramas(o, e) {
 		return new Promise((resolve, reject) => {
-			let Cronos;
-			if (e != 0)
-				Cronos = Cronogramas.filter((c) => c.etapa_id === e)
-			else if (o != 0)
-				Cronos = Cronogramas.filter((c) => c.obra_id === o)
-			else
-				Cronos = Cronogramas
 			setTimeout(() => {
-				resolve(Object.assign([], Cronos))
+				resolve(Object.assign([], Cronogramas))
 			}, delay);
 		});
 	}

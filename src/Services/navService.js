@@ -61,20 +61,16 @@ export default class navService {
 
 	getCronogramas() {
 		return new Promise((resolve, reject) => {
-			if (this.obra && this.etapa) {
-				API.getCronogramas(this.obra.id, this.etapa.id)
-					.then(cronos => {
-						if (cronos.length > 0)
-							resolve(cronos)
-						else
-							resolve(null)
-					})
-					.catch(err => {
-						reject(err)
-					})
-			} else {
-				reject('No Obra or Etapa')
-			}
+			API.getCronogramas()
+				.then(cronos => {
+					if (cronos.length > 0)
+						resolve(cronos)
+					else
+						resolve(null)
+				})
+				.catch(err => {
+					reject(err)
+				})
 		})
 	}
 
@@ -84,7 +80,7 @@ export default class navService {
 
 	setFlags(obra, etapa) {
 		this.obra = obra
-		if(!etapa){
+		if (!etapa) {
 			etapa = {
 				id: 0
 			}

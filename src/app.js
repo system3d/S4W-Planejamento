@@ -13,6 +13,8 @@ import AvancoController from './controllers/AvancoController'
 
 import navService from './Services/navService'
 
+import bdDatepicker from './directives/bdDatepickerDirective'
+
 export default angular.module('app', [routing])
 	.config(config)
 	.controller('MainController', MainController)
@@ -22,4 +24,5 @@ export default angular.module('app', [routing])
 	.controller('EntregaController', EntregaController)
 	.controller('AvancoController', AvancoController)
 	.service('navService', navService)
+	.directive('bdDatepicker',() => new bdDatepicker())
 	.name

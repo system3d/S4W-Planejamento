@@ -12,7 +12,8 @@
     "lint": "node_modules/.bin/esw webpack.config.* src/**/*.js",
     "lint:watch": "npm run lint -- --watch",
     "build": "node_modules/.bin/webpack",
-    "test": "karma start",
+    "test:watch": "karma start",
+    "test": "npm-run-all --parallel test:watch lint:watch",
     "serve": "cd dist && live-server --port=7070",
     "build:watch": "node_modules/.bin/webpack --watch",
     "dev": "npm-run-all --parallel build:watch serve",
@@ -39,11 +40,9 @@
     "jade-loader": "^0.8.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
-    "karma-coverage": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.7.0",
     "ng-annotate-loader": "^0.1.0",
     "npm-run-all": "^2.2.0",
@@ -57,6 +56,9 @@
   "dependencies": {
     "angular": "^1.5.7",
     "angular-animate": "^1.5.7",
-    "angular-ui-router": "^0.3.1"
+    "angular-ui-router": "^0.3.1",
+    "bootstrap-datepicker": "^1.6.1",
+    "jquery": "^3.0.0",
+    "moment": "^2.13.0"
   }
 }
