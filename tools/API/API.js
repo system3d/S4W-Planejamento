@@ -215,28 +215,29 @@ const Cronogramas = [{
 			final: '2017-01-12'
 		}
 	}
-}, {
-	obra_id: 3,
-	obra: "Marcha Imperial",
-	etapa_id: 5,
-	etapa: 'T5',
-	revisao: 2,
+},
+{
+	obra_id: 5,
+	obra: "Wish you were Potato",
+	etapa_id: 10,
+	etapa: 'T8',
+	revisao: 0,
 	cronograma: {
 		projeto: {
-			inicio: '2016-06-27',
-			final: '2016-07-12'
+			inicio: null,
+			final: null
 		},
 		fabricacao: {
-			inicio: '2016-08-27',
-			final: '2016-09-12'
+			inicio: null,
+			final: null
 		},
 		expedicao: {
-			inicio: '2016-10-27',
-			final: '2016-11-12'
+			inicio: null,
+			final: null
 		},
 		montagem: {
-			inicio: '2016-12-27',
-			final: '2017-01-12'
+			inicio: null,
+			final: null
 		}
 	}
 }]
@@ -262,10 +263,40 @@ class API {
 
 	static getCronogramas(o, e) {
 		return new Promise((resolve, reject) => {
+			let Cronos = []
+			let ids = []
+			Cronogramas.forEach(c => {
+				if (ids.indexOf(c.etapa_id) === -1) {
+					Cronos.push(c)
+					ids.push(c.etapa_id)
+				} else {
+					if (c.revisao > Cronos[ids.indexOf(c.etapa_id)].revisao) {
+						Cronos.splice(ids.indexOf(c.etapa_id), 1)
+						Cronos.push(c)
+					}
+				}
+			})
 			setTimeout(() => {
-				resolve(Object.assign([], Cronogramas))
+				resolve(Object.assign([], Cronos))
 			}, delay);
 		});
+	}
+
+	static saveCronos(cronos) {
+		return new Promise((resolve, reject) => {
+			cronos.forEach(crono => {
+				Cronogramas.push(crono)
+			})
+			resolve(true)
+		})
+	}
+
+	static returnRevision(etapa_id){
+		return new Promise((resolve, reject) => {
+			let etapa = Cronogramas.filter(c => c.etapa_id === etapa_id)[0]
+			etapa.revisao--
+			resolve(etapa)
+		})
 	}
 
 }

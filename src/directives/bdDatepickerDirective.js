@@ -44,8 +44,8 @@ export default class bdDatepicker {
 				let temp = moment($scope.ngModel, 'YYYY-MM-DD');
 				temp = temp.format('DD/MM/YYYY');
 				elem.find('input').datepicker('update', temp);
-				changeEvent();
 			}
+				changeEvent();
 		}, true);
 
 		function changeEvent() {
@@ -79,3 +79,5 @@ export default class bdDatepicker {
 	}
 
 }
+
+//TODO: Write Unit Tests for this shiath

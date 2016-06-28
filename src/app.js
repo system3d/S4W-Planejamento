@@ -15,7 +15,9 @@ import navService from './Services/navService'
 
 import bdDatepicker from './directives/bdDatepickerDirective'
 
-export default angular.module('app', [routing])
+import '../node_modules/angular-sweetalert/SweetAlert'
+
+export default angular.module('app', [routing, 'oitozero.ngSweetAlert'])
 	.config(config)
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)

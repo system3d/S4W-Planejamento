@@ -89,6 +89,29 @@ export default class navService {
 		this.flag = this.obra.id.toString() + 'x' + this.etapa.id.toString()
 	}
 
+	saveRevision(cronos) {
+		return new Promise((resolve, reject) => {
+			API.saveCronos(cronos).then( () => {
+				resolve(true)
+			}).catch(e => {
+				reject(e)
+			})
+		})
+	}
+
+	returnRevision(etapa_id){
+		return new Promise((resolve, reject) => {
+			API.returnRevision(etapa_id).then( (novaEtapa) => {
+				resolve(novaEtapa)
+			}).catch(e => {
+				reject(e)
+			})
+		})
+	}
+
 }
 
 navService.$inject = []
+
+// TODO: Make a service for the mocked API[and add this. to API calls](it`ll be like that in production with the real API)
+// TODO: Unit Test for saveRevision and returnRevision

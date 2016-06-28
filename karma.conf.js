@@ -4,7 +4,7 @@ module.exports = function(config) {
 		browsers: ['PhantomJS'],
 		reporters: ['progress'],
 		autoWatch: true,
-    singleRun: false,
+		singleRun: false,
 		files: [
 			'node_modules/babel-es6-polyfill/browser-polyfill.min.js',
 			'test/tests.webpack.js'
@@ -13,27 +13,27 @@ module.exports = function(config) {
 			'test/tests.webpack.js': ['webpack']
 		},
 		webpack: {
-             devtool: 'source-map',
-             module: {
-							 loaders: [{
-								test: /\.js$/,
-								loaders: [ 'babel', 'ng-annotate'],
-								exclude: /node_modules/
-							}, {
-								test: /\.html$/,
-								loader: 'html'
-							}, {
-								test: /\.jade$/,
-								loader: 'jade-loader'
-							}, {
-								test: /\.styl$/,
-								loader: 'style-loader!css-loader!stylus-loader'
-							}]
-             }
-         },
-         webpackMiddleware: {
-             noInfo: true,
-						 quiet: true
-         }
+			devtool: 'source-map',
+			module: {
+				loaders: [{
+					test: /\.js$/,
+					loaders: ['babel', 'ng-annotate'],
+					exclude: /node_modules/
+				}, {
+					test: /\.html$/,
+					loader: 'html'
+				}, {
+					test: /\.jade$/,
+					loader: 'jade-loader'
+				}, {
+					test: /\.styl$/,
+					loader: 'style-loader!css-loader!stylus-loader'
+				}]
+			}
+		},
+		webpackMiddleware: {
+			noInfo: true,
+			quiet: true
+		}
 	});
 };

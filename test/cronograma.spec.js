@@ -18,6 +18,7 @@ describe("Cronograma Controller", function() {
 		ctrl.loadCrono()
 			.then(() => {
 				expect(ctrl.Cronogramas.length).toEqual(4)
+				expect(ctrl.CronogramasLegacy.length).toEqual(4)
 				done()
 			})
 	});
@@ -73,5 +74,85 @@ describe("Cronograma Controller", function() {
 		ctrl.setFilters()
 		expect(ctrl.filter).toEqual({})
 	})
+
+	it('Should ~touch~ a cronograma on the emit', function() {
+		let subScope = $scope.$new()
+		ctrl.Cronogramas.push({
+			touched: false,
+			etapa_id: 1
+		})
+		ctrl.Cronogramas.push({
+			touched: false,
+			etapa_id: 2
+		})
+		subScope.$emit('bdDatepickerChanged', 1);
+		expect(ctrl.Cronogramas[0].touched).toBeTruthy()
+		expect(ctrl.Cronogramas[1].touched).toBeFalsy()
+	})
+
+	it('Should reset back the Cronogramas', () => {
+		ctrl.Cronogramas.push({
+			touched: true,
+			obra_id: 1
+		})
+		ctrl.CronogramasLegacy.push({
+			touched: true,
+			obra_id: 1
+		})
+		let param = ctrl.Cronogramas
+		ctrl.Cronogramas = {
+			x: 'Objeto todo Errado'
+		}
+		ctrl.resetCrono()
+		expect(ctrl.Cronogramas).toEqual(param)
+		expect(ctrl.touched).toBeFalsy()
+	});
+
+	it('Should Update legacy', () => {
+		ctrl.Cronogramas.push({
+			touched: true,
+			obra_id: 1
+		})
+		ctrl.CronogramasLegacy.push({
+			touched: true,
+			obra_id: 1
+		})
+		ctrl.Cronogramas[0].obra_id = 850
+		ctrl.updateLegacy()
+		expect(ctrl.CronogramasLegacy[0].obra_id).toEqual(850)
+	});
+
+	it('Should Reset the Toucheds', () => {
+		ctrl.Cronogramas.push({
+			touched: true,
+			revisao: 1
+		})
+		ctrl.Cronogramas.push({
+			touched: false,
+			revisao: 2
+		})
+		ctrl.resetToucheds()
+		let reseted = true
+		ctrl.Cronogramas.forEach(c => {
+			if (c.touched)
+				reseted = false
+		})
+		expect(reseted).toBeTruthy()
+		expect(ctrl.Cronogramas[0].touched).toBeFalsy()
+	});
+
+	it("Should Augment the Revision", function() {
+		ctrl.Cronogramas.push({
+			touched: true,
+			revisao: 1
+		})
+		ctrl.Cronogramas.push({
+			touched: false,
+			revisao: 2
+		})
+		ctrl.augmentRevision()
+		expect(ctrl.Cronogramas[0].revisao).toEqual(2)
+		expect(ctrl.Cronogramas[1].revisao).toEqual(2)
+	});
 
 });
