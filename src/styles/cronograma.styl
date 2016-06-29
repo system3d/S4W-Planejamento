@@ -1,5 +1,13 @@
 .box-crono
   table
+    th
+      user-select none
+      &:first-child,&:nth-child(2),&:nth-child(11)
+        &:hover
+          cursor pointer
+          color #065998
+    th.sortingBy
+      color #3492da
     tr.touched
       background-color #feffe1
       &:hover
@@ -7,6 +15,9 @@
     tr
       td,th
         vertical-align middle
+      td
+        input
+          text-align center
     td.have-hover:hover
       cursor pointer
   input.planejamento-input
@@ -15,4 +26,7 @@
     height 23px !important
     color #6b6b6b !important
   .box-footer
-    height 50px
+    .pull-right
+      button
+        margin-right 15px
+        margin-top 20px

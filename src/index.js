@@ -5,7 +5,7 @@ import ngAnimate from 'angular-animate'
 // App Files related to Angular
 import app from './app'
 // CSS Styles
-import './style'
+import './styles'
 
 angular.module('PlanejamentoApp', [app,ngAnimate])
 

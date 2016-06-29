@@ -3,15 +3,15 @@
 .form-group.ng-hide-remove
   animation 0.2s zoomIn ease
 
-[ui-view].ng-enter
-  animation:0.5s zoomIn ease
+.enter-left.ng-enter
+  animation:0.75s slideInLeft ease
+
+.enter-right.ng-enter
+  animation:0.75s slideInRight ease
 
 table
-  .ng-leave
-    animation:0.3s fadeOutDown ease
-
   .ng-enter
-    animation:0.3s fadeInDown ease
+    animation:0.75s slideInLeft ease
 
 
 @-webkit-keyframes zoomIn {
@@ -138,54 +138,54 @@ table
   }
 }
 
-@-webkit-keyframes fadeInDown {
+@-webkit-keyframes slideInLeft {
   from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
   }
 
   to {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes fadeInDown {
+@keyframes slideInLeft {
   from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
   }
 
   to {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@-webkit-keyframes fadeOutDown {
+@-webkit-keyframes slideInRight {
   from {
-    opacity: 1;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
   }
 
   to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes fadeOutDown {
+@keyframes slideInRight {
   from {
-    opacity: 1;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
   }
 
   to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }

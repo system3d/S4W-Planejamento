@@ -1,8 +1,10 @@
 export default class MainController {
-	constructor($location, $scope, navService) {
+	constructor($location, $scope, navService, $rootScope) {
 		let activeTemp = $location.absUrl()
 		activeTemp = activeTemp.split('/').pop()
 		this.active = activeTemp === '' ? 'home' : activeTemp
+		this.$rootScope = $rootScope
+		this.transSide = 0
 		this.obra = {
 			'id': 0,
 			'nome': 'Todas'
@@ -16,10 +18,30 @@ export default class MainController {
 		this.navService = navService
 		this.loadObras()
 		this.load()
+		this.$rootScope.$on('$stateChangeStart', (evt, toState, toParams, fromState) => {
+			(this.getOrder(fromState.name) > this.getOrder(toState.name)) ? this.transSide = 1 : this.transSide = 0
+		});
 	}
 
 	changeActive(n) {
 		this.active = n
+	}
+
+	getOrder(page) {
+		switch (page) {
+			case 'home':
+				return 0
+			case 'cronograma':
+				return 1
+			case 'gantt':
+				return 2
+			case 'avanco':
+				return 3
+			case 'entrega':
+				return 4
+			default:
+				return 0
+		}
 	}
 
 	obraChanged() {
@@ -78,6 +100,7 @@ export default class MainController {
 		if (this.obra)
 			this.navService.setFlags(this.obra, this.etapa)
 	}
+
 }
 
-MainController.$inject = ['$location', '$scope', 'navService']
+MainController.$inject = ['$location', '$scope', 'navService', '$rootScope']

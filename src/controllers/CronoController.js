@@ -1,10 +1,17 @@
 export default class CronoController {
+	/*@ngInject*/
 	constructor($scope, navService, SweetAlert) {
 		this.$scope = $scope
 		this.navService = navService
 		this.Cronogramas = []
 		this.CronogramasLegacy = []
 		this.filter = {}
+		this.perPage = 20
+		this.sort = {
+			param: 'obra',
+			reverse: false,
+			literal: 'obra'
+		}
 		this.sweetalert = SweetAlert
 		this.$scope.$watch(
 			() => {
@@ -18,8 +25,10 @@ export default class CronoController {
 
 		this.$scope.$on('bdDatepickerChanged', (e, row) => {
 			this.Cronogramas.forEach(c => {
-				if (c.etapa_id === row)
+				if (c.etapa_id === row) {
 					c.touched = true
+				}
+
 			})
 			this.touch()
 		})
@@ -30,13 +39,25 @@ export default class CronoController {
 			this.navService.getCronogramas()
 				.then(cronos => {
 					this.Cronogramas = angular.fromJson(angular.toJson(cronos))
-					this.CronogramasLegacy = angular.fromJson(angular.toJson(cronos))
+					this.CronogramasLegacy = angular.fromJson(angular.toJson(this.Cronogramas))
 					this.$scope.$digest()
 					resolve(true)
 				}).catch(err => {
 					reject(err)
 				})
 		})
+	}
+
+	sortBy(paramFull, extra = null) {
+		let param = paramFull.toLowerCase().replace(new RegExp("[àáâãäå]", 'g'), "a").replace(new RegExp("ç", 'g'), "c")
+		this.sort.literal = paramFull
+		if (extra) {
+			this.sort.literal = paramFull + "." + extra
+			param = param + "." + extra
+		}
+
+		this.sort.param = param
+		this.sort.reverse = !this.sort.reverse
 	}
 
 	resetCrono() {
@@ -106,7 +127,7 @@ export default class CronoController {
 		return new Promise((resolve, reject) => {
 			let touchedRevisions = this.Cronogramas.filter(c => c.touched)
 			this.navService.saveRevision(touchedRevisions)
-				.then( () => {
+				.then(() => {
 					resolve(true)
 				}).catch(e => {
 					reject(e)
@@ -141,29 +162,29 @@ export default class CronoController {
 	sendReturnRevision(etapa) {
 		return new Promise((resolve, reject) => {
 			this.navService.returnRevision(etapa)
-				.then( (r) => {
+				.then((r) => {
 					resolve(r)
 				})
-				.catch( e => {
+				.catch(e => {
 					reject(e)
 				})
 		})
 	}
 
-	changeReturned(etapa){
-		this.Cronogramas.forEach( (c,i) => {
-			if(c.etapa_id == etapa.etapa_id){
-				this.Cronogramas.splice(i,1)
+	changeReturned(etapa) {
+		this.Cronogramas.forEach((c, i) => {
+			if (c.etapa_id == etapa.etapa_id) {
+				this.Cronogramas.splice(i, 1)
 				this.Cronogramas.push(etapa)
 			}
 		})
-			this.$scope.$digest()
+		this.$scope.$digest()
 	}
 
-	changeReturnedLegacy(etapa){
-		this.CronogramasLegacy.forEach( (c,i) => {
-			if(c.etapa_id == etapa.etapa_id){
-				this.CronogramasLegacy.splice(i,1)
+	changeReturnedLegacy(etapa) {
+		this.CronogramasLegacy.forEach((c, i) => {
+			if (c.etapa_id == etapa.etapa_id) {
+				this.CronogramasLegacy.splice(i, 1)
 				this.CronogramasLegacy.push(etapa)
 			}
 		})
@@ -173,8 +194,7 @@ export default class CronoController {
 
 CronoController.$inject = ['$scope', 'navService', 'SweetAlert']
 
-// TODO: Unit Test for ChangeReturned, ChangeReturnedLegacy, sendRevision and SendReturnedRevision(last 2 may be a little tricky)
-// TODO: orderBy - Column in the table
+
 // TODO: Unit Test for Failure(reject Promises mostly, must write a mock service for it)
-// TODO: maybe store the crono(and the charts data as well) in the navService or in a cacheService(performances tests may be needed)
 // TODO: THINK ABOUT: Advise the maluco when he is trying to leave with changed data and when he is saving with unseen rows changed
+// TODO: If the laggy changing states don`t stop after appliyng the serviceCache, maybe wait until the state has changet(ui-router event) to load data

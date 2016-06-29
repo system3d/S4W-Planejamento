@@ -2,16 +2,23 @@ module.exports = function(config) {
 	config.set({
 		frameworks: ['jasmine'],
 		browsers: ['PhantomJS'],
-		reporters: ['progress'],
-		autoWatch: true,
-		singleRun: false,
-		files: [
-			'node_modules/babel-es6-polyfill/browser-polyfill.min.js',
-			'test/tests.webpack.js'
-		],
+		reporters: ['mocha'],
+		files: [{
+			pattern: 'node_modules/babel-es6-polyfill/browser-polyfill.min.js',
+			watched: false,
+			included: true,
+			served: true
+		}, {
+			pattern: 'test/tests.webpack.js',
+			watched: false,
+			included: true,
+			served: true
+		}],
+
 		preprocessors: {
 			'test/tests.webpack.js': ['webpack']
 		},
+		autoWatchBatchDelay: 1000,
 		webpack: {
 			devtool: 'source-map',
 			module: {

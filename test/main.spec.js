@@ -16,7 +16,7 @@ describe('MainController', () => {
 			}
 		}
 		$scope = $rootScope.$new()
-		ctrl = new MainController($location, $scope, new navService(API, $scope));
+		ctrl = new MainController($location, $scope, new navService(API, $scope), $rootScope);
 
 	}));
 

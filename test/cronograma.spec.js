@@ -3,24 +3,56 @@ import navService from '../src/Services/navService'
 import API from '../tools/API/API'
 
 describe("Cronograma Controller", function() {
-	let ctrl, $location, $scope;
+	let ctrl, $scope;
+
+	let soloCrono = {
+		obra_id: 1,
+		obra: 'TransVilmar',
+		etapa_id: 1,
+		etapa: 'T1',
+		revisao: 2,
+		cronograma: {
+			projeto: {
+				inicio: '2016-06-27',
+				final: '2016-07-12'
+			},
+			fabricacao: {
+				inicio: '2016-08-27',
+				final: '2016-09-12'
+			},
+			expedicao: {
+				inicio: '2016-10-27',
+				final: '2016-11-12'
+			},
+			montagem: {
+				inicio: '2016-12-27',
+				final: '2017-01-12'
+			}
+		}
+	}
 
 
 	beforeEach(inject(function($rootScope) {
 		$scope = $rootScope.$new()
-		ctrl = new CronoController($scope, new navService(API, $scope))
+		ctrl = new CronoController($scope, new navService(API))
 	}));
 
 	it('Should load the Cronos', (done) => {
-		ctrl.navService.setObra({
-			id: 1
-		})
 		ctrl.loadCrono()
 			.then(() => {
 				expect(ctrl.Cronogramas.length).toEqual(4)
 				expect(ctrl.CronogramasLegacy.length).toEqual(4)
 				done()
 			})
+	});
+
+	it("Should change de sortBy params", function() {
+		ctrl.sortBy('Fabricação', 'inicio')
+		expect(ctrl.sort).toEqual({
+			param: 'fabricacao.inicio',
+			reverse: true,
+			literal: 'Fabricação.inicio'
+		})
 	});
 
 	describe("Initial Functions", function() {
@@ -153,6 +185,104 @@ describe("Cronograma Controller", function() {
 		ctrl.augmentRevision()
 		expect(ctrl.Cronogramas[0].revisao).toEqual(2)
 		expect(ctrl.Cronogramas[1].revisao).toEqual(2)
+	});
+
+	it("Should return the revision to the one that is passed", function() {
+		ctrl.Cronogramas.push({
+			touched: true,
+			revisao: 2,
+			etapa_id: 1,
+			param: 'actual'
+		})
+		let oldRevision = {
+			touched: false,
+			revisao: 1,
+			etapa_id: 1,
+			param: 'old'
+		}
+		ctrl.changeReturned(oldRevision)
+		expect(ctrl.Cronogramas.length).toBe(1)
+		expect(ctrl.Cronogramas[0].param).toEqual('old')
+	});
+
+	it("Should return the revision(legacy) to the one that is passed", function() {
+		ctrl.CronogramasLegacy.push({
+			touched: true,
+			revisao: 2,
+			etapa_id: 1,
+			param: 'actual'
+		})
+		let oldRevision = {
+			touched: false,
+			revisao: 1,
+			etapa_id: 1,
+			param: 'old'
+		}
+		ctrl.changeReturnedLegacy(oldRevision)
+		expect(ctrl.CronogramasLegacy.length).toBe(1)
+		expect(ctrl.CronogramasLegacy[0].param).toEqual('old')
+	});
+
+});
+
+class mockApi {
+	constructor() {
+		this.teste = null
+	}
+
+	saveRevision(value) {
+		return new Promise((resolve) => {
+			this.teste = value
+			resolve(true)
+		})
+	}
+
+	returnRevision(value) {
+		return new Promise((resolve) => {
+			this.teste = value
+			resolve(true)
+		})
+	}
+
+	flags() {
+		return 'flag'
+	}
+}
+
+describe("cronoController with Mock API", function() {
+	let ctrl, $scope;
+
+	beforeEach(inject(function($rootScope) {
+		$scope = $rootScope.$new()
+		ctrl = new CronoController($scope, new mockApi())
+	}));
+
+	it('Should Send the Revision', (done) => {
+		ctrl.Cronogramas.push({
+			touched: true,
+			revisao: 2,
+			etapa_id: 1
+		})
+		ctrl.sendRevisao()
+			.then(() => {
+				expect(ctrl.navService.teste).toEqual([{
+					touched: true,
+					revisao: 2,
+					etapa_id: 1
+				}])
+				done()
+			})
+	});
+
+	it('Should call sendReturnRevision', (done) => {
+		ctrl.sendReturnRevision('teste')
+			.then(() => {
+				expect(ctrl.navService.teste).toEqual('teste')
+				done()
+			}).catch(x => {
+				console.log(x);
+				done()
+			})
 	});
 
 });

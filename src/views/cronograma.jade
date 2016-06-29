@@ -4,15 +4,15 @@
     table.display.table.table-hover.stripe(cellspacing="0" width="100%")
       thead
         tr
-          th Obra 
-          th Etapa
+          th(ng-click='crono.sortBy("obra")', ng-class="{'sortingBy':crono.sort.literal === 'obra'}") Obra
+          th(ng-click='crono.sortBy("etapa")', ng-class="{'sortingBy':crono.sort.literal === 'etapa'}") Etapa
           each val in estages
             th= val + " - Início"
             th= val + " - Final"
-          th Revisão 
+          th(ng-click='crono.sortBy("revisao")', ng-class="{'sortingBy':crono.sort.literal === 'revisao'}") Revisão
           th 
       tbody
-        tr(ng-repeat="cr in crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa} | orderBy:'etapa_id'", ng-class='{touched: cr.touched}', ng-animate="'zoomIn'")
+        tr(dir-paginate="cr in crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa} | orderBy: crono.sort.param : crono.sort.reverse | itemsPerPage: crono.perPage", ng-class='{touched: cr.touched}', ng-animate="'zoomIn'")
           td [[cr.obra]]
           td [[cr.etapa]]
           td
@@ -21,11 +21,11 @@
             bd-datepicker(ng-model='cr.cronograma.projeto.final', max-date="false", min-date='cr.cronograma.projeto.inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
           td
             bd-datepicker(ng-model='cr.cronograma.fabricacao.inicio', max-date="cr.cronograma.fabricacao.final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td 
+          td
             bd-datepicker(ng-model='cr.cronograma.fabricacao.final', max-date="false", min-date='cr.cronograma.fabricacao.inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
           td
             bd-datepicker(ng-model='cr.cronograma.expedicao.inicio', max-date="cr.cronograma.expedicao.final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td 
+          td
             bd-datepicker(ng-model='cr.cronograma.expedicao.final', max-date="false", min-date='cr.cronograma.expedicao.inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
           td
             bd-datepicker(ng-model='cr.cronograma.montagem.inicio', max-date="cr.cronograma.montagem.final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
@@ -37,11 +37,11 @@
           td(ng-if='!(cr.revisao > 1)' align='center') 
             i.fa.fa-undo.text-disabled
   .box-footer
-    .form-group.pull-left
-      button.btn.btn-sm.btn-default(ng-click='crono.resetCrono()', ng-disabled='!crono.touched', title='Desfazer Mudanças não Salvas')
+    .pull-right
+      button.btn.btn-sm.btn-default.pull-left(ng-click='crono.resetCrono()', ng-disabled='!crono.touched', title='Desfazer Mudanças não Salvas')
         i.fa.fa-undo
         &nbsp; Desfazer Mudanças 
-    .form-group.pull-right
-      button.btn.btn-sm.btn-success(ng-click='crono.salvarRevisao()', ng-disabled='!crono.touched', title='Salvar Revisão')
+      button.btn.btn-sm.btn-success.pull-right(ng-click='crono.salvarRevisao()', ng-disabled='!crono.touched', title='Salvar Revisão')
         i.fa.fa-floppy-o
         &nbsp; Salvar
+    dir-pagination-controls.pull-left

@@ -17,7 +17,9 @@ import bdDatepicker from './directives/bdDatepickerDirective'
 
 import '../node_modules/angular-sweetalert/SweetAlert'
 
-export default angular.module('app', [routing, 'oitozero.ngSweetAlert'])
+import './plugins/dirPagination'
+
+export default angular.module('app', [routing, 'oitozero.ngSweetAlert', 'angularUtils.directives.dirPagination'])
 	.config(config)
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)

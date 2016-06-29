@@ -2,4 +2,4 @@ include header
 
 include navigation
 
-div(ui-view='content')
+div(ui-view='content',ng-class="{'enter-left': main.transSide === 0, 'enter-right':  main.transSide === 1}")

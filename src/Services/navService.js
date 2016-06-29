@@ -1,7 +1,7 @@
 import API from '../../tools/API/API'
 
 export default class navService {
-
+	/*@ngInject*/
 	constructor(API) {
 		this.obra = {
 			id: 0
