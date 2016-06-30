@@ -6,7 +6,7 @@ export default class cacheService {
 		this.$interval(() => this.scan(), 300000);
 	}
 
-	set(key, payload, expire = 5) {
+	setValue(key, payload, expire = 5) {
 
 		if (this.index(key) !== -1) {
 			this.delete(key)
@@ -27,7 +27,7 @@ export default class cacheService {
 		return new Promise((resolve, reject) => {
 			if (this.getByKey(key)) {
 				if (this.checkTime(key)) {
-					resolve(this.getByKey(key))
+					resolve(this.getByKey(key).payload)
 				} else {
 					reject(null)
 				}
@@ -60,7 +60,7 @@ export default class cacheService {
 	}
 
 	index(key) {
-		return this.Memory.indexOf(this.Memory.filter(c => c.key === key)[0])
+		return this.Memory.indexOf(this.Memory.find(c => c.key === key))
 	}
 
 	scan() {

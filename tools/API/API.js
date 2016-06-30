@@ -244,7 +244,7 @@ const Cronogramas = [{
 
 class API {
 
-	static getObras() {
+	getObras() {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
 				resolve(Object.assign([], Obras))
@@ -252,7 +252,7 @@ class API {
 		});
 	}
 
-	static getEtapas(id) {
+	getEtapas(id) {
 		return new Promise((resolve, reject) => {
 			let Etaps = Etapas.filter((e) => e.obra_id === id)
 			setTimeout(() => {
@@ -261,7 +261,7 @@ class API {
 		});
 	}
 
-	static getCronogramas(o, e) {
+	getCronogramas(o, e) {
 		return new Promise((resolve, reject) => {
 			let Cronos = []
 			let ids = []
@@ -282,7 +282,7 @@ class API {
 		});
 	}
 
-	static saveCronos(cronos) {
+	saveCronos(cronos) {
 		return new Promise((resolve, reject) => {
 			cronos.forEach(crono => {
 				Cronogramas.push(crono)
@@ -291,7 +291,7 @@ class API {
 		})
 	}
 
-	static returnRevision(etapa_id){
+	returnRevision(etapa_id){
 		return new Promise((resolve, reject) => {
 			let etapa = Cronogramas.filter(c => c.etapa_id === etapa_id)[0]
 			etapa.revisao--

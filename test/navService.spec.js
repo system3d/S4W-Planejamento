@@ -1,78 +1,195 @@
 import navService from '../src/Services/navService'
+import cacheService from '../src/Services/cacheService'
 import API from '../tools/API/API'
 
 describe('Navigation Service', () => {
 	let nav;
 
+	beforeEach(inject(function($interval) {
+		nav = new navService(new API(), new cacheService($interval));
+	}));
+	describe("get/set Obra", function() {
+
+		it('Should set then get an obra', () => {
+			nav.setObra({
+				id: 1,
+				nome: 'Faroeste Cabloco'
+			})
+			expect(nav.obra.nome).toBe('Faroeste Cabloco')
+			expect(nav.getObra().id).toBe(1)
+		});
+
+	});
+
+	describe("get/set Etapa", function() {
+
+		it('Should set then get an etapa', () => {
+			nav.setEtapa({
+				id: 1,
+				codigo: 'DANCE'
+			})
+			expect(nav.etapa.codigo).toBe('DANCE')
+			expect(nav.getEtapa().id).toBe(1)
+		});
+
+	});
+
+	describe("getObras", function() {
+
+		it("Should get The obras", function(done) {
+			nav.getObras()
+				.then(obras => {
+					expect(obras.length).toBe(5)
+					done()
+				})
+		});
+
+	});
+
+	describe("getEtapas", function() {
+
+		it("Should get The Etapas", function(done) {
+			nav.getEtapas(1)
+				.then(etapas => {
+					expect(etapas.length).toBe(2)
+					done()
+				})
+		});
+
+	});
+
+	describe("getCronogramas", function() {
+
+		it("Should get all Cronogramas", function(done) {
+			nav.getCronogramas()
+				.then(cronos => {
+					expect(cronos.length).toBe(4)
+					done()
+				})
+		});
+
+
+		it("Should get all Cronogramas despite what obra is selected", function(done) {
+			nav.setObra({
+				id: 1,
+				nome: 'Faroeste Cabloco'
+			})
+			nav.getCronogramas()
+				.then(cronos => {
+					expect(cronos.length).toBe(4)
+					done()
+				})
+		});
+
+	});
+
+	describe("setFlags/flags", function() {
+
+		it("should set and return the flags", function() {
+			let obra = ({
+				id: 1,
+				nome: 'Faroeste Cabloco'
+			})
+			let etapa = ({
+				id: 1,
+				codigo: 'DANCE'
+			})
+			nav.setFlags(obra, etapa)
+			expect(nav.flags()).toBe('1x1');
+		});
+
+	});
+
+});
+
+describe("navService with MockApi", function() {
+
+	class mockApi {
+		constructor() {
+			this.teste = null
+		}
+
+		saveCronos(value) {
+			return new Promise((resolve) => {
+				this.teste = value
+				resolve(true)
+			})
+		}
+
+		returnRevision(value) {
+			return new Promise((resolve) => {
+				this.teste = value
+				resolve(true)
+			})
+		}
+
+	}
+
+	let nav;
+
 	beforeEach(() => {
-		nav = new navService(API);
+		nav = new navService(new mockApi());
 	});
 
-	it('Getter/Setter Obra', () => {
-		nav.setObra({
-			id: 1,
-			nome: 'Faroeste Cabloco'
-		})
-		expect(nav.obra.nome).toBe('Faroeste Cabloco')
-		expect(nav.getObra().id).toBe(1)
+	describe("saveRevision", function() {
+
+		it("Should Send the cronos to be saved", function(done) {
+			nav.saveRevision({
+					id: 1,
+					crono: 'lindão'
+				})
+				.then(() => {
+					expect(nav.API.teste).toEqual({
+						id: 1,
+						crono: 'lindão'
+					})
+					done()
+				})
+		});
+
 	});
 
-	it('Getter/Setter Etapa', () => {
-		nav.setEtapa({
-			id: 1,
-			codigo: 'DANCE'
-		})
-		expect(nav.etapa.codigo).toBe('DANCE')
-		expect(nav.getEtapa().id).toBe(1)
+	describe("returnRevision", function() {
+
+		it("Should send the revision and get the old one", function() {
+			nav.returnRevision(1)
+				.then(() => {
+					expect(nav.API.teste).toBe(1)
+				})
+		});
+
 	});
 
-	it("Should get The obras", function(done) {
-		nav.getObras()
-			.then(obras => {
-				expect(obras.length).toBe(5)
-				done()
-			})
+});
+
+describe("navService with MockCache", function() {
+
+	class mockCache {
+		constructor() {
+			this.teste = null
+		}
+
+		setValue(useless, value) {
+			this.teste = value
+		}
+
+	}
+
+	let nav;
+
+	beforeEach(() => {
+		nav = new navService(new API(), new mockCache());
 	});
 
-	it("Should get The Etapas", function(done) {
-		nav.getEtapas(1)
-			.then(etapas => {
-				expect(etapas.length).toBe(2)
-				done()
-			})
-	});
+	describe("syncCronogramas", function() {
 
-	it("Should get all Cronogramas", function(done) {
-		nav.getCronogramas()
-			.then(cronos => {
-				expect(cronos.length).toBe(4)
-				done()
-			})
-	});
+		it("Should send the crono to cache", function() {
+			nav.syncCronogramas('cold winter night')
+			expect(nav.Cache.teste).toBe('cold winter night')
+			nav.syncCronogramas('hot summer morning')
+			expect(nav.Cache.teste).toBe('hot summer morning')
+		});
 
-	it("Should get all Cronogramas despite what obra is selected", function(done) {
-		nav.setObra({
-			id: 1,
-			nome: 'Faroeste Cabloco'
-		})
-		nav.getCronogramas()
-			.then(cronos => {
-				expect(cronos.length).toBe(4)
-				done()
-			})
-	});
-
-	it("should set and return the flags", function() {
-		nav.setObra({
-			id: 1,
-			nome: 'Faroeste Cabloco'
-		})
-		nav.setEtapa({
-			id: 1,
-			codigo: 'DANCE'
-		})
-		nav.setFlags(nav.obra, nav.etapa)
-		expect(nav.flags()).toBe('1x1');
 	});
 
 });

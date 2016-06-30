@@ -36,12 +36,25 @@
             i.fa.fa-undo.text-red
           td(ng-if='!(cr.revisao > 1)' align='center') 
             i.fa.fa-undo.text-disabled
+        tr(ng-hide='crono.Cronogramas.length')
+          td(colspan='12', align='center', style='padding: 115px')
+            .loader
+              .side
+              .side
+              .side
+              .side
+              .side
+              .side
+              .side
+              .side
+        tr(ng-hide="(crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa}).length || !crono.Cronogramas.length")
+          td(colspan='12', align='center') Obra não Contêm Etapas
   .box-footer
     .pull-right
       button.btn.btn-sm.btn-default.pull-left(ng-click='crono.resetCrono()', ng-disabled='!crono.touched', title='Desfazer Mudanças não Salvas')
         i.fa.fa-undo
-        &nbsp; Desfazer Mudanças 
+        span &nbsp; Desfazer Mudanças 
       button.btn.btn-sm.btn-success.pull-right(ng-click='crono.salvarRevisao()', ng-disabled='!crono.touched', title='Salvar Revisão')
         i.fa.fa-floppy-o
-        &nbsp; Salvar
+        span &nbsp; Salvar
     dir-pagination-controls.pull-left

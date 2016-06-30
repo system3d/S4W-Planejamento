@@ -63,6 +63,7 @@ export default class CronoController {
 	resetCrono() {
 		this.Cronogramas = angular.fromJson(angular.toJson(this.CronogramasLegacy))
 		this.touched = false
+		this.syncCache()
 	}
 
 	updateLegacy() {
@@ -106,6 +107,7 @@ export default class CronoController {
 							this.augmentRevision()
 							this.resetToucheds()
 							this.updateLegacy()
+							this.syncCache()
 						})
 						.catch(() => {
 							this.sweetalert.swal("Ooops...", "Erro ao Salvar Revisão", "error")
@@ -179,6 +181,7 @@ export default class CronoController {
 			}
 		})
 		this.$scope.$digest()
+		this.syncCache()
 	}
 
 	changeReturnedLegacy(etapa) {
@@ -188,6 +191,10 @@ export default class CronoController {
 				this.CronogramasLegacy.push(etapa)
 			}
 		})
+	}
+
+	syncCache(){
+		this.navService.syncCronogramas(this.Cronogramas)
 	}
 
 }

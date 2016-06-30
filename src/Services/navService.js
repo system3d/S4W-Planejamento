@@ -1,8 +1,6 @@
-import API from '../../tools/API/API'
-
 export default class navService {
 	/*@ngInject*/
-	constructor(API) {
+	constructor(API, Cache) {
 		this.obra = {
 			id: 0
 		}
@@ -11,6 +9,7 @@ export default class navService {
 		}
 		this.flag = 0
 		this.API = API
+		this.Cache = Cache
 	}
 
 	setObra(obra) {
@@ -31,7 +30,7 @@ export default class navService {
 
 	getObras() {
 		return new Promise((resolve, reject) => {
-			API.getObras()
+			this.API.getObras()
 				.then(obras => {
 					if (obras.length > 0)
 						resolve(obras)
@@ -46,7 +45,7 @@ export default class navService {
 
 	getEtapas(id) {
 		return new Promise((resolve, reject) => {
-			API.getEtapas(id)
+			this.API.getEtapas(id)
 				.then(etapas => {
 					if (etapas.length > 0)
 						resolve(etapas)
@@ -61,17 +60,33 @@ export default class navService {
 
 	getCronogramas() {
 		return new Promise((resolve, reject) => {
-			API.getCronogramas()
+			this.Cache.get('Cronogramas')
 				.then(cronos => {
 					if (cronos.length > 0)
 						resolve(cronos)
 					else
 						resolve(null)
 				})
-				.catch(err => {
-					reject(err)
+				.catch(e => {
+					if (!e) {
+						this.API.getCronogramas()
+							.then(cronos => {
+								if (cronos.length > 0) {
+									resolve(cronos)
+									this.syncCronogramas(cronos)
+								} else
+									resolve(null)
+							})
+							.catch(err => {
+								reject(err)
+							})
+					}
 				})
 		})
+	}
+
+	syncCronogramas(cronos) {
+		this.Cache.setValue('Cronogramas', cronos)
 	}
 
 	flags() {
@@ -91,7 +106,7 @@ export default class navService {
 
 	saveRevision(cronos) {
 		return new Promise((resolve, reject) => {
-			API.saveCronos(cronos).then( () => {
+			this.API.saveCronos(cronos).then(() => {
 				resolve(true)
 			}).catch(e => {
 				reject(e)
@@ -99,9 +114,9 @@ export default class navService {
 		})
 	}
 
-	returnRevision(etapa_id){
+	returnRevision(etapa_id) {
 		return new Promise((resolve, reject) => {
-			API.returnRevision(etapa_id).then( (novaEtapa) => {
+			this.API.returnRevision(etapa_id).then((novaEtapa) => {
 				resolve(novaEtapa)
 			}).catch(e => {
 				reject(e)
@@ -111,7 +126,4 @@ export default class navService {
 
 }
 
-navService.$inject = []
-
-// TODO: Make a service for the mocked API[and add this. to API calls](it`ll be like that in production with the real API)
-// TODO: Unit Test for saveRevision and returnRevision
+navService.$inject = ['API', 'Cache']
