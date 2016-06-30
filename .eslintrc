@@ -31,6 +31,7 @@
     "no-lone-blocks": 0,
     "angular/document-service": 0,
     "angular/no-service-method": 0,
-    "angular/log": 0
+    "angular/log": 0,
+    "angular/module-getter": 0
   }
 }

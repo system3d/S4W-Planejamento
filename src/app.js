@@ -4,6 +4,8 @@ import routing from './routing'
 
 import config from './app.config'
 
+import {register} from './plugins/utils'
+
 import MainController from './controllers/MainController'
 import HomeController from './controllers/HomeController'
 import CronoController from './controllers/CronoController'
@@ -16,12 +18,18 @@ import api from '../tools/API/API'
 import cacheService from './Services/cacheService'
 
 import bdDatepicker from './directives/bdDatepickerDirective'
-
+import './styles/animations.styl'
 import '../node_modules/angular-sweetalert/SweetAlert'
+// import '../node_modules/chart.js/dist/Chart.min'
+// import './plugins/chartjs/Chart.js'
+
+import '../node_modules/angular-chart.js/angular-chart'
+
+// import './plugins/angular-chart/angular-chart.min'
 
 import './plugins/dirPagination'
 
-export default angular.module('app', [routing, 'oitozero.ngSweetAlert', 'angularUtils.directives.dirPagination'])
+export default angular.module('app', [routing, 'oitozero.ngSweetAlert', 'angularUtils.directives.dirPagination', 'chart.js'])
 	.config(config)
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)
@@ -32,5 +40,7 @@ export default angular.module('app', [routing, 'oitozero.ngSweetAlert', 'angular
 	.service('Cache', cacheService)
 	.service('navService', navService)
 	.service('API', api)
-	.directive('bdDatepicker',() => new bdDatepicker())
+	// .directive('bdDatepicker',() => new bdDatepicker())
 	.name
+
+	register('app').directive('bdDatepicker', bdDatepicker);

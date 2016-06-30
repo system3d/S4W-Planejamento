@@ -204,4 +204,3 @@ CronoController.$inject = ['$scope', 'navService', 'SweetAlert']
 
 // TODO: Unit Test for Failure(reject Promises mostly, must write a mock service for it)
 // TODO: THINK ABOUT: Advise the maluco when he is trying to leave with changed data and when he is saving with unseen rows changed
-// TODO: If the laggy changing states don`t stop after appliyng the serviceCache, maybe wait until the state has changet(ui-router event) to load data

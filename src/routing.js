@@ -5,7 +5,7 @@ function routing($urlRouterProvider, $locationProvider, $stateProvider) {
 	$locationProvider.html5Mode({
 		enabled: false
 	})
-	$urlRouterProvider.otherwise('/')
+	$urlRouterProvider.otherwise('/cronograma')
 	$stateProvider
 		.state('layout', {
 			abstract: true,
@@ -15,17 +15,17 @@ function routing($urlRouterProvider, $locationProvider, $stateProvider) {
 				}
 			}
 		})
-		.state('home', {
-			url: '/',
-			parent: 'layout',
-			views: {
-				"content@layout": {
-					template: require('./views/home.jade'),
-					controller: 'HomeController',
-					controllerAs: 'home'
-				}
-			}
-		})
+		// .state('home', {
+		// 	url: '/',
+		// 	parent: 'layout',
+		// 	views: {
+		// 		"content@layout": {
+		// 			template: require('./views/home.jade'),
+		// 			controller: 'HomeController',
+		// 			controllerAs: 'home'
+		// 		}
+		// 	}
+		// })
 		.state('cronograma', {
 			url: '/cronograma',
 			parent: 'layout',

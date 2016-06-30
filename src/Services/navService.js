@@ -7,6 +7,7 @@ export default class navService {
 		this.etapa = {
 			id: 0
 		}
+		this.date = {}
 		this.flag = 0
 		this.API = API
 		this.Cache = Cache
@@ -26,6 +27,30 @@ export default class navService {
 
 	getEtapa() {
 		return this.etapa
+	}
+
+	getDates() {
+		return this.date
+	}
+
+	setDate(date) {
+		this.date = date
+	}
+
+	getAvanco() {
+		return new Promise((resolve, reject) => {
+			this.API.getAvanco(this.obra.id, this.etapa.id, this.date)
+				.then(data => resolve(data))
+				.catch(err => reject(err))
+		})
+	}
+
+	getEntrega() {
+		return new Promise((resolve, reject) => {
+			this.API.getEntrega(this.obra.id, this.etapa.id, this.date)
+				.then(data => resolve(data))
+				.catch(err => reject(err))
+		})
 	}
 
 	getObras() {
@@ -93,7 +118,7 @@ export default class navService {
 		return this.flag
 	}
 
-	setFlags(obra, etapa) {
+	setFlags(obra, etapa, dates = null) {
 		this.obra = obra
 		if (!etapa) {
 			etapa = {
@@ -101,7 +126,9 @@ export default class navService {
 			}
 		}
 		this.etapa = etapa
-		this.flag = this.obra.id.toString() + 'x' + this.etapa.id.toString()
+		if (dates)
+			this.date = dates
+		this.flag = this.obra.id.toString() + 'x' + this.etapa.id.toString() + 'x' + this.date.start + 'x' + this.date.end
 	}
 
 	saveRevision(cronos) {

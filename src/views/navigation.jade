@@ -10,10 +10,10 @@
           select.form-control.input-sm(ng-options="etapa.codigo for etapa in main.Etapas track by etapa.id", ng-model="main.etapa")
         .form-group(ng-show="main.active !== 'gantt' && main.active !== 'cronograma' ")
           span De:&nbsp;
-          input.form-control.input-sm(type='text')
+          bd-datepicker(ng-model='main.date.start', max-date="main.date.end", min-date='false', bd-class="input-sm")
         .form-group(ng-show="main.active !== 'gantt' && main.active !== 'cronograma' ")
           span Até:&nbsp;
-          input.form-control.input-sm(type='text')
+          bd-datepicker(ng-model='main.date.end', max-date="false", min-date='main.date.start', bd-class="input-sm")
         .form-group 
           button.btn.btn-sm.btn-primary(ng-click='main.load()', title='Carregar') Carregar
           

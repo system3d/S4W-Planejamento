@@ -215,8 +215,7 @@ const Cronogramas = [{
 			final: '2017-01-12'
 		}
 	}
-},
-{
+}, {
 	obra_id: 5,
 	obra: "Wish you were Potato",
 	etapa_id: 10,
@@ -291,12 +290,37 @@ class API {
 		})
 	}
 
-	returnRevision(etapa_id){
+	returnRevision(etapa_id) {
 		return new Promise((resolve, reject) => {
 			let etapa = Cronogramas.filter(c => c.etapa_id === etapa_id)[0]
 			etapa.revisao--
-			resolve(etapa)
+				resolve(etapa)
 		})
+	}
+
+	getAvanco() {
+		return new Promise((resolve, reject) => {
+			resolve(this.generateRandomChart())
+		})
+	}
+
+	getEntrega() {
+		return new Promise((resolve, reject) => {
+			resolve(this.generateRandomChart())
+		})
+	}
+
+	generateRandomChart() {
+		let a = [],
+			b = [],
+			c = [];
+		for (var i = 0; i < 4; i++) {
+			a.push(Math.floor(Math.random() * 90 + 10))
+			b.push(Math.floor(Math.random() * 90 + 10))
+		}
+		c.push(a)
+		c.push(b)
+		return c
 	}
 
 }

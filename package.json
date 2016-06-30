@@ -58,10 +58,12 @@
   "dependencies": {
     "angular": "^1.5.7",
     "angular-animate": "^1.5.7",
+    "angular-chart.js": "^1.0.0-alpha8",
     "angular-h-sweetalert": "^1.4.7",
     "angular-sweetalert": "^1.1.0",
     "angular-ui-router": "^0.3.1",
     "bootstrap-datepicker": "^1.6.1",
+    "chart.js": "^2.1.6",
     "jquery": "^3.0.0",
     "moment": "^2.13.0"
   }

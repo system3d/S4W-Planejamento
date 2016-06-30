@@ -94,8 +94,12 @@ describe('Navigation Service', () => {
 				id: 1,
 				codigo: 'DANCE'
 			})
-			nav.setFlags(obra, etapa)
-			expect(nav.flags()).toBe('1x1');
+			let date = ({
+				start: "1970-01-01",
+				end: "1970-01-01"
+			})
+			nav.setFlags(obra, etapa, date)
+			expect(nav.flags()).toBe('1x1x1970-01-01x1970-01-01');
 		});
 
 	});

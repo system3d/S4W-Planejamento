@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export default class MainController {
 	constructor($location, $scope, navService, $rootScope) {
 		let activeTemp = $location.absUrl()
@@ -16,6 +18,10 @@ export default class MainController {
 		this.Obras = []
 		this.$scope = $scope
 		this.navService = navService
+		this.date = {}
+		this.date.start =  moment().format('YYYY-MM-DD')
+		this.date.end = 	 moment().add(1,'month').format('YYYY-MM-DD')
+		this.navService.setDate(this.date)
 		this.loadObras()
 		this.load()
 		this.$rootScope.$on('$stateChangeStart', (evt, toState, toParams, fromState) => {
