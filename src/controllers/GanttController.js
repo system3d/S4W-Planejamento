@@ -31,7 +31,7 @@ export default class GanttController {
 					}
 				})
 				.catch(err => {
-					reject(err)
+					console.log(err);
 				})
 		})
 	}
@@ -49,3 +49,4 @@ export default class GanttController {
 GanttController.$inject = ['$scope', 'navService', '$rootScope']
 
 // TODO: Make Gantt compatible with Planejamento data
+// TODO: Error Service to handle errors(e.e) and display to user if it influence him
