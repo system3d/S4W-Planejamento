@@ -450,10 +450,16 @@ class API {
 		})
 	}
 
+	saveGantt(data){
+		return new Promise((resolve, reject) => {
+				resolve({title: 'Sucesso',msg: 'Cronograma salvo com sucesso', status: 'error'})
+		})
+	}
+
 	getGantt() {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
-				resolve(Object.assign([], Gantt))
+				resolve(JSON.parse(JSON.stringify(Gantt)))
 			}, delay);
 		})
 	}

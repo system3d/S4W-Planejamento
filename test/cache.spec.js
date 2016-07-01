@@ -223,6 +223,35 @@ describe("Cache Service", () => {
 
 	});
 
+	describe("Delete", () => {
+		it('Should delete a key', () => {
+			cache.Memory = [{
+				key: 'test',
+				payload: 'JOHN CENA',
+				expireRate: 2,
+				expire: Date.now() + (2 * 60000)
+			}, {
+				key: 'fail',
+				payload: 'JOHN CENA',
+				expireRate: 2,
+				expire: Date.now() - (2 * 60000)
+			}]
+			cache.delete('test')
+			expect(cache.Memory.length).toBe(1)
+			expect(cache.Memory[0].key).toBe('fail')
+		})
+		it('Should delete a key when there is only one', () => {
+			cache.Memory = [{
+				key: 'test',
+				payload: 'JOHN CENA',
+				expireRate: 2,
+				expire: Date.now() + (2 * 60000)
+			}]
+			cache.delete('test')
+			expect(cache.Memory.length).toBe(0)
+		})
+	})
+
 })
 
 // TODO: Import this Service in app.js, and apply it in the application =)

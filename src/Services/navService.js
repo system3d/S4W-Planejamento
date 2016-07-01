@@ -37,6 +37,50 @@ export default class navService {
 		this.date = date
 	}
 
+	eraseCache(which) {
+		this.Cache.delete(which)
+	}
+
+	// TODO: Load all the Gantt Data and filter in the controller(only an idea)
+	getGantt() {
+		return new Promise((resolve, reject) => {
+			this.Cache.get('Gantt')
+				.then(data => {
+					console.log('RETURNG CACHED');
+					resolve(data)
+				})
+				.catch(e => {
+					if (!e) {
+						this.API.getGantt(this.obra.id, this.etapa.id)
+							.then(data => {
+								console.log('RETURNING NEW');
+									resolve(data)
+									this.syncGantt(data)
+							})
+							.catch(err => {
+								reject(err)
+							})
+					}
+				})
+		})
+	}
+
+	syncGantt(data) {
+		this.Cache.setValue('Gantt', data)
+	}
+
+	saveGantt(data) {
+		return new Promise((resolve, reject) => {
+			this.API.saveGantt(data)
+				.then(r => {
+					resolve(r)
+				})
+				.catch(err => {
+					reject(err)
+				})
+		})
+	}
+
 	getAvanco() {
 		return new Promise((resolve, reject) => {
 			this.API.getAvanco(this.obra.id, this.etapa.id, this.date)

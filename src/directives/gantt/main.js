@@ -59,7 +59,6 @@ export default class ganttDirective {
 		gantt.config.autofit = true;
 		gantt.config.autosize = true;
 		gantt.config.fit_tasks = true;
-		gantt.config.touch = "force";
 		gantt.locale = {
 			date: {
 				month_full: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
@@ -189,6 +188,18 @@ export default class ganttDirective {
 				gantt.render();
 			}
 		}, true);
+
+		this.$rootScope.$on('GanttReload', (event, collection) => {
+			let tempObj = {
+				data: collection
+			}
+			console.log(tempObj);
+			gantt.clearAll();
+			gantt.parse(tempObj, "json");
+			this.helper.balanceGantt();
+			$scope.ganttDid = true;
+			gantt.render();
+		})
 
 		window.onresize = () => {
 			gantt.render();

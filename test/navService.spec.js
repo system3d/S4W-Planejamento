@@ -104,9 +104,9 @@ describe('Navigation Service', () => {
 
 	});
 
-	describe("getAvanco", function () {
+	describe("getAvanco", function() {
 
-		it("Should get the avanco data", function (done) {
+		it("Should get the avanco data", function(done) {
 			nav.getAvanco()
 				.then(data => {
 					expect(data.length).toBe(2)
@@ -118,9 +118,9 @@ describe('Navigation Service', () => {
 
 	});
 
-	describe("getEntrega", function () {
+	describe("getEntrega", function() {
 
-		it("Should get the entrega data", function (done) {
+		it("Should get the entrega data", function(done) {
 			nav.getEntrega()
 				.then(data => {
 					expect(data.length).toBe(2)
@@ -183,10 +183,11 @@ describe("navService with MockApi", function() {
 
 	describe("returnRevision", function() {
 
-		it("Should send the revision and get the old one", function() {
+		it("Should send the revision and get the old one", function(done) {
 			nav.returnRevision(1)
 				.then(() => {
 					expect(nav.API.teste).toBe(1)
+					done()
 				})
 		});
 
@@ -224,4 +225,81 @@ describe("navService with MockCache", function() {
 
 	});
 
+	describe("syncGantt", () => {
+		it('Should send the gantt to cache', () => {
+			nav.syncGantt('cold winter night')
+			expect(nav.Cache.teste).toBe('cold winter night')
+			nav.syncGantt('hot summer morning')
+			expect(nav.Cache.teste).toBe('hot summer morning')
+		})
+	})
+
 });
+
+describe("Mock API Cache Normal", () => {
+
+	class mockApi {
+		constructor() {
+			this.teste = null
+		}
+
+		saveCronos(value) {
+			return new Promise((resolve) => {
+				this.teste = value
+				resolve(true)
+			})
+		}
+
+		returnRevision(value) {
+			return new Promise((resolve) => {
+				this.teste = value
+				resolve(true)
+			})
+		}
+
+		getGantt(value) {
+			return new Promise((resolve) => {
+				this.teste = value
+				resolve(true)
+			})
+		}
+
+	}
+
+	let nav;
+
+	beforeEach(inject(function($interval) {
+		nav = new navService(new mockApi(), new cacheService($interval));
+	}));
+
+
+	describe("getGantt", () => {
+
+		it('Should call API`s getGantt', (done) => {
+			nav.obra = {
+				id: 58
+			}
+			nav.getGantt()
+				.then(() => {
+					expect(nav.API.teste).toEqual(58)
+					done()
+				})
+		})
+
+		it('Should get Gantt from cache', (done) => {
+			nav.obra = {
+				id: 58
+			}
+			nav.Cache.Memory.push({
+				key: 'Gantt',
+				payload: 'WE`RE WALING OVER HILLS'
+			})
+			nav.getGantt()
+				.then(() => {
+					expect(nav.API.teste).toBe(null)
+					done()
+				})
+		})
+
+	})
+})

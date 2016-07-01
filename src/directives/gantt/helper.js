@@ -1,28 +1,7 @@
 export default class GanttHelper {
 	constructor() {
-		this.scale = 3
+		
 	}
-
-  changeScale(which){
-    (which === 0) ? this.scale-- : this.scale++
-    switch (this.scale) {
-      case 1:
-        scale_one()
-        break
-      case 2:
-        scale_two()
-        break
-      case 3:
-        scale_tree()
-        break
-      case 4:
-        scale_four()
-        break
-      default:
-        scale_tree()
-        break
-    }
-  }
 
 	scale_one() {
 		gantt.config.scale_unit = "month";
