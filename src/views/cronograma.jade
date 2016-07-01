@@ -1,4 +1,3 @@
-- let estages = ['Projeto', 'Fabricação', 'Expedição', 'Montagem'];
 .box.box-primary.box-crono
   .box-body
     table.display.table.table-hover.stripe(cellspacing="0" width="100%")
@@ -6,7 +5,7 @@
         tr
           th(ng-click='crono.sortBy("obra")', ng-class="{'sortingBy':crono.sort.literal === 'obra'}") Obra
           th(ng-click='crono.sortBy("etapa")', ng-class="{'sortingBy':crono.sort.literal === 'etapa'}") Etapa
-          each val in estages
+          each val in ['Projeto', 'Fabricação', 'Expedição', 'Montagem']
             th= val + " - Início"
             th= val + " - Final"
           th(ng-click='crono.sortBy("revisao")', ng-class="{'sortingBy':crono.sort.literal === 'revisao'}") Revisão

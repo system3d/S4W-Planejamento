@@ -19,7 +19,10 @@ let config = {
 		}, {
 			test: /\.styl$/,
 			loader: 'style-loader!css-loader!stylus-loader'
-		}]
+		}, {
+			test: /\.css$/,
+			loader: "style-loader!css-loader"
+		} ]
 	},
 	resolve: {
 		extensions: ['', '.js', '.jade', '.html']
@@ -39,7 +42,7 @@ if (!isDevServer) {
 	config.plugins.push(new webpack.optimize.DedupePlugin())
 	config.plugins.push(new webpack.optimize.UglifyJsPlugin())
 	config.plugins.push(new webpack.optimize.OccurenceOrderPlugin())
-}else{
+} else {
 	config.devtool = 'inline-source-map';
 }
 

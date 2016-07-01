@@ -104,6 +104,34 @@ describe('Navigation Service', () => {
 
 	});
 
+	describe("getAvanco", function () {
+
+		it("Should get the avanco data", function (done) {
+			nav.getAvanco()
+				.then(data => {
+					expect(data.length).toBe(2)
+					expect(data[0].length).toBe(4)
+					expect(data[1].length).toBe(4)
+					done()
+				})
+		});
+
+	});
+
+	describe("getEntrega", function () {
+
+		it("Should get the entrega data", function (done) {
+			nav.getEntrega()
+				.then(data => {
+					expect(data.length).toBe(2)
+					expect(data[0].length).toBe(4)
+					expect(data[1].length).toBe(4)
+					done()
+				})
+		});
+
+	});
+
 });
 
 describe("navService with MockApi", function() {

@@ -4,7 +4,7 @@ export default class MainController {
 	constructor($location, $scope, navService, $rootScope) {
 		let activeTemp = $location.absUrl()
 		activeTemp = activeTemp.split('/').pop()
-		this.active = activeTemp === '' ? 'home' : activeTemp
+		this.active = activeTemp === '' ? 'cronograma' : activeTemp
 		this.$rootScope = $rootScope
 		this.transSide = 0
 		this.obra = {

@@ -23,7 +23,7 @@ describe('MainController', () => {
 	describe("Constructor", function() {
 
 		it('Should Initialize stuff', () => {
-			expect(ctrl.active).toBe('home');
+			expect(ctrl.active).toBe('cronograma');
 			expect(ctrl.obra).toEqual({
 				'id': 0,
 				'nome': 'Todas'

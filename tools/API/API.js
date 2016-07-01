@@ -1,5 +1,157 @@
 import delay from './delay'
 
+const Gantt = {
+	data: [{
+		id: "E25",
+		text: "LOTE M4",
+		progress: 0,
+		dirty: "false",
+		open: false,
+		start_date: "19/03/2016",
+		end_date: "17/05/2016"
+	}, {
+		id: "E26",
+		text: "M1M3",
+		progress: 0,
+		dirty: "false",
+		open: false,
+		start_date: "31/12/2015",
+		end_date: "29/05/2016"
+	}, {
+		id: "T26x14",
+		text: "Preparação",
+		start_date: "31/12/2015",
+		end_date: "18/04/2016",
+		progress: 0,
+		bright: true,
+		open: false,
+		color: "rgb(255,140,0)",
+		parent: "E26"
+	}, {
+		id: "R26x14",
+		text: "Realizado",
+		progress: 0,
+		start_date: "21/03/2016",
+		end_date: "21/03/2016",
+		parent: "T26x14",
+		color: "rgb(12,255,0)",
+		bright: true
+	}, {
+		id: "T26x15",
+		text: "Gabarito",
+		start_date: "31/12/2015",
+		end_date: "25/04/2016",
+		progress: 0,
+		bright: false,
+		open: false,
+		color: "rgb(84,107,47)",
+		parent: "E26"
+	}, {
+		id: "R26x15",
+		text: "Realizado",
+		progress: 0,
+		start_date: "21/03/2016",
+		end_date: "21/03/2016",
+		parent: "T26x15",
+		color: "rgb(12,255,0)",
+		bright: true
+	}, {
+		id: "T26x16",
+		text: "Solda",
+		start_date: "31/12/2015",
+		end_date: "01/05/2016",
+		progress: 0,
+		bright: true,
+		open: false,
+		color: "rgb(0,255,0)",
+		parent: "E26"
+	}, {
+		id: "R26x16",
+		text: "Realizado",
+		progress: 0,
+		start_date: "21/03/2016",
+		end_date: "21/03/2016",
+		parent: "T26x16",
+		color: "rgb(12,255,0)",
+		bright: true
+	}, {
+		id: "T26x17",
+		text: "Pintura",
+		start_date: "31/12/2015",
+		end_date: "08/05/2016",
+		progress: 0,
+		bright: true,
+		open: false,
+		color: "rgb(64,224,207)",
+		parent: "E26"
+	}, {
+		id: "E28",
+		text: "M2M4",
+		progress: 0,
+		dirty: "false",
+		open: false,
+		start_date: "31/12/2015",
+		end_date: "01/09/2016"
+	}, {
+		id: "T28x14",
+		text: "Preparação",
+		start_date: "31/12/2015",
+		end_date: "01/05/2016",
+		progress: 0,
+		bright: true,
+		open: false,
+		color: "rgb(255,140,0)",
+		parent: "E28"
+	}, {
+		id: "R28x14",
+		text: "Realizado",
+		progress: 0,
+		start_date: "21/03/2016",
+		end_date: "21/03/2016",
+		parent: "T28x14",
+		color: "rgb(12,255,0)",
+		bright: true
+	}, {
+		id: "T28x15",
+		text: "Gabarito",
+		start_date: "31/12/2015",
+		end_date: "01/06/2016",
+		progress: 0,
+		bright: false,
+		open: false,
+		color: "rgb(84,107,47)",
+		parent: "E28"
+	}, {
+		id: "R28x15",
+		text: "Realizado",
+		progress: 0,
+		start_date: "21/03/2016",
+		end_date: "21/03/2016",
+		parent: "T28x15",
+		color: "rgb(12,255,0)",
+		bright: true
+	}, {
+		id: "T28x16",
+		text: "Solda",
+		start_date: "31/12/2015",
+		end_date: "01/07/2016",
+		progress: 0,
+		bright: true,
+		open: false,
+		color: "rgb(0,255,0)",
+		parent: "E28"
+	}, {
+		id: "R28x16",
+		text: "Realizado",
+		progress: 0,
+		start_date: "25/03/2016",
+		end_date: "25/03/2016",
+		parent: "T28x16",
+		color: "rgb(12,255,0)",
+		bright: true
+	}]
+}
+
 const Obras = [{
 	id: 1,
 	codigo: "Trans",
@@ -295,6 +447,14 @@ class API {
 			let etapa = Cronogramas.filter(c => c.etapa_id === etapa_id)[0]
 			etapa.revisao--
 				resolve(etapa)
+		})
+	}
+
+	getGantt() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(Object.assign([], Gantt))
+			}, delay);
 		})
 	}
 

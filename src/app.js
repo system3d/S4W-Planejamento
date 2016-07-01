@@ -4,6 +4,8 @@ import routing from './routing'
 
 import config from './app.config'
 
+import gantt from './directives/gantt'
+
 import {register} from './plugins/utils'
 
 import MainController from './controllers/MainController'
@@ -18,6 +20,7 @@ import api from '../tools/API/API'
 import cacheService from './Services/cacheService'
 
 import bdDatepicker from './directives/bdDatepickerDirective'
+
 import './styles/animations.styl'
 import '../node_modules/angular-sweetalert/SweetAlert'
 // import '../node_modules/chart.js/dist/Chart.min'
@@ -29,7 +32,7 @@ import '../node_modules/angular-chart.js/angular-chart'
 
 import './plugins/dirPagination'
 
-export default angular.module('app', [routing, 'oitozero.ngSweetAlert', 'angularUtils.directives.dirPagination', 'chart.js'])
+export default angular.module('app', [routing,gantt, 'oitozero.ngSweetAlert', 'angularUtils.directives.dirPagination', 'chart.js'])
 	.config(config)
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)

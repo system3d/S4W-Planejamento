@@ -1,12 +1,29 @@
 export default class EntregaController {
-  constructor() {
+	/*@ngInject*/
+	constructor($scope, navService) {
+		this.$scope = $scope
+		this.navService = navService
 		this.labels = ["Projeto", "Fabricação", "Expedição", "Montagem"];
 		this.series = ['Previsto', 'Realizado'];
-		this.data = [
-			[28, 86, 27, 90],
-			[65, 59, 80, 81]
-		];
+		this.data = [];
 
-		this.colors =  ['#00ADF9', '#12A030', '#C359FA', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
+		this.$scope.$watch(
+			() => {
+				return this.navService.flags()
+			},
+			() => {
+				this.loadData()
+			}, true);
+
+		this.colors = ['#00ADF9', '#12A030']
+	}
+
+	loadData() {
+		this.navService.getEntrega()
+			.then(data => {
+				this.data = data
+			})
 	}
 }
+
+EntregaController.$inject = ['$scope', 'navService']
