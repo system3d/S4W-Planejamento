@@ -46,14 +46,12 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.Cache.get('Gantt')
 				.then(data => {
-					console.log('RETURNG CACHED');
 					resolve(data)
 				})
 				.catch(e => {
 					if (!e) {
 						this.API.getGantt(this.obra.id, this.etapa.id)
 							.then(data => {
-								console.log('RETURNING NEW');
 									resolve(data)
 									this.syncGantt(data)
 							})

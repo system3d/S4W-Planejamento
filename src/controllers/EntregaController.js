@@ -27,3 +27,5 @@ export default class EntregaController {
 }
 
 EntregaController.$inject = ['$scope', 'navService']
+
+// TODO: Real Time Charts

@@ -193,7 +193,6 @@ export default class ganttDirective {
 			let tempObj = {
 				data: collection
 			}
-			console.log(tempObj);
 			gantt.clearAll();
 			gantt.parse(tempObj, "json");
 			this.helper.balanceGantt();

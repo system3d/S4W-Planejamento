@@ -452,7 +452,7 @@ class API {
 
 	saveGantt(data){
 		return new Promise((resolve, reject) => {
-				resolve({title: 'Sucesso',msg: 'Cronograma salvo com sucesso', status: 'error'})
+				resolve({title: 'Sucesso',msg: 'Cronograma salvo com sucesso', status: 'success'})
 		})
 	}
 

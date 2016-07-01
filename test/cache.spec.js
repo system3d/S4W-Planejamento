@@ -253,5 +253,3 @@ describe("Cache Service", () => {
 	})
 
 })
-
-// TODO: Import this Service in app.js, and apply it in the application =)

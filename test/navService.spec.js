@@ -264,6 +264,13 @@ describe("Mock API Cache Normal", () => {
 			})
 		}
 
+		saveGantt(value) {
+			return new Promise((resolve) => {
+				this.teste = value
+				resolve(true)
+			})
+		}
+
 	}
 
 	let nav;
@@ -271,6 +278,16 @@ describe("Mock API Cache Normal", () => {
 	beforeEach(inject(function($interval) {
 		nav = new navService(new mockApi(), new cacheService($interval));
 	}));
+
+	describe("saveGantt", () => {
+		it('Should Call Send Gantt', (done) => {
+			nav.saveGantt('Test Save GAntt')
+				.then(() => {
+					expect(nav.API.teste).toEqual('Test Save GAntt')
+					done()
+				})
+		})
+	})
 
 
 	describe("getGantt", () => {

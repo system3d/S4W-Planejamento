@@ -7,17 +7,21 @@ export default class GanttController {
 		this.ganttData = []
 		this.loadGantt()
 		this.rootScope.$on('rloadGantt', () => {
-			this.navService.eraseCache('Gantt')
-			console.log(this.navService.Cache.Memory);
-			this.loadGantt()
-				.then(() => {
-					this.reloadGantt()
-				})
+			this.reloadGantt()
 		})
+
+		this.$scope.$watch(
+			() => {
+				return this.navService.flags()
+			},
+			(n,o) => {
+				if(n !== o)
+					this.reloadGantt()
+			}, true);
 	}
 
 	loadGantt() {
-		return new Promise((resolve) => {
+		return new Promise((resolve, reject) => {
 			this.navService.getGantt()
 				.then(data => {
 					if (data.constructor == Object) {
@@ -26,16 +30,22 @@ export default class GanttController {
 						resolve(true)
 					}
 				})
+				.catch(err => {
+					reject(err)
+				})
 		})
 	}
 
 	reloadGantt() {
-		this.rootScope.$broadcast('GanttReload', this.ganttData);
+		this.navService.eraseCache('Gantt')
+		this.loadGantt()
+			.then(() => {
+				this.rootScope.$broadcast('GanttReload', this.ganttData);
+			})
 	}
 
 }
 
 GanttController.$inject = ['$scope', 'navService', '$rootScope']
 
-// TODO: Fix the response on save gantt if fails it`s not behaving like wanted
 // TODO: Make Gantt compatible with Planejamento data
