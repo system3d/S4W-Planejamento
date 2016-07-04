@@ -22,6 +22,10 @@ export default class AvancoController {
 		this.navService.getAvanco()
 			.then(data => {
 				this.data = data
+				this.$scope.$digest()
+			})
+			.catch( () => {
+				flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....')
 			})
 	}
 }

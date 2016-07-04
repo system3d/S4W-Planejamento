@@ -6,6 +6,9 @@ export default class GanttController {
 		this.rootScope = $rootScope
 		this.ganttData = []
 		this.loadGantt()
+		.catch( () => {
+			flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....')
+		})
 		this.rootScope.$on('rloadGantt', () => {
 			this.reloadGantt()
 		})
@@ -31,16 +34,18 @@ export default class GanttController {
 					}
 				})
 				.catch(err => {
-					console.log(err);
+					reject(err)
 				})
 		})
 	}
 
 	reloadGantt() {
-		this.navService.eraseCache('Gantt')
 		this.loadGantt()
 			.then(() => {
 				this.rootScope.$broadcast('GanttReload', this.ganttData);
+			})
+			.catch( () => {
+				flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....')
 			})
 	}
 
@@ -49,4 +54,3 @@ export default class GanttController {
 GanttController.$inject = ['$scope', 'navService', '$rootScope']
 
 // TODO: Make Gantt compatible with Planejamento data
-// TODO: Error Service to handle errors(e.e) and display to user if it influence him

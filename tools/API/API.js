@@ -393,7 +393,68 @@ const Cronogramas = [{
 	}
 }]
 
+import _memoize from 'lodash/memoize'
+
 class API {
+
+	constructor() {
+
+		this.getGantt = _memoize((u, obra, etapa) => {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					console.log('Api Gantt');
+					resolve(JSON.parse(JSON.stringify(Gantt)))
+				}, delay);
+			})
+		})
+
+		this.getCronogramas = _memoize((u) => {
+			return new Promise((resolve, reject) => {
+				let Cronos = []
+				let ids = []
+				Cronogramas.forEach(c => {
+					if (ids.indexOf(c.etapa_id) === -1) {
+						Cronos.push(c)
+						ids.push(c.etapa_id)
+					} else {
+						if (c.revisao > Cronos[ids.indexOf(c.etapa_id)].revisao) {
+							Cronos.splice(ids.indexOf(c.etapa_id), 1)
+							Cronos.push(c)
+						}
+					}
+				})
+				setTimeout(() => {
+					console.log('Api Cronos');
+					resolve(Object.assign([], Cronos))
+				}, delay);
+			});
+		})
+
+		this.getEtapas = _memoize( id => {
+			return new Promise((resolve, reject) => {
+				let Etaps = Etapas.filter((e) => e.obra_id === id)
+				setTimeout(() => {
+					console.log('Api Etapas');
+					resolve(Object.assign([], Etaps))
+				}, delay);
+			});
+		})
+
+		this.getAvanco = _memoize( (u,o,e,d) => {
+			return new Promise((resolve, reject) => {
+				console.log('Api Avanco');
+				resolve(this.generateRandomChart())
+			})
+		})
+
+		this.getEntrega = _memoize( (u,o,e,d) => {
+			return new Promise((resolve, reject) => {
+				console.log('Api Entrega');
+				resolve(this.generateRandomChart())
+			})
+		})
+
+	}
 
 	getObras() {
 		return new Promise((resolve, reject) => {
@@ -403,35 +464,35 @@ class API {
 		});
 	}
 
-	getEtapas(id) {
-		return new Promise((resolve, reject) => {
-			let Etaps = Etapas.filter((e) => e.obra_id === id)
-			setTimeout(() => {
-				resolve(Object.assign([], Etaps))
-			}, delay);
-		});
-	}
+	// getEtapas(id) {
+	// 	return new Promise((resolve, reject) => {
+	// 		let Etaps = Etapas.filter((e) => e.obra_id === id)
+	// 		setTimeout(() => {
+	// 			resolve(Object.assign([], Etaps))
+	// 		}, delay);
+	// 	});
+	// }
 
-	getCronogramas(o, e) {
-		return new Promise((resolve, reject) => {
-			let Cronos = []
-			let ids = []
-			Cronogramas.forEach(c => {
-				if (ids.indexOf(c.etapa_id) === -1) {
-					Cronos.push(c)
-					ids.push(c.etapa_id)
-				} else {
-					if (c.revisao > Cronos[ids.indexOf(c.etapa_id)].revisao) {
-						Cronos.splice(ids.indexOf(c.etapa_id), 1)
-						Cronos.push(c)
-					}
-				}
-			})
-			setTimeout(() => {
-				resolve(Object.assign([], Cronos))
-			}, delay);
-		});
-	}
+	// getCronogramas(o, e) {
+	// 	return new Promise((resolve, reject) => {
+	// 		let Cronos = []
+	// 		let ids = []
+	// 		Cronogramas.forEach(c => {
+	// 			if (ids.indexOf(c.etapa_id) === -1) {
+	// 				Cronos.push(c)
+	// 				ids.push(c.etapa_id)
+	// 			} else {
+	// 				if (c.revisao > Cronos[ids.indexOf(c.etapa_id)].revisao) {
+	// 					Cronos.splice(ids.indexOf(c.etapa_id), 1)
+	// 					Cronos.push(c)
+	// 				}
+	// 			}
+	// 		})
+	// 		setTimeout(() => {
+	// 			resolve(Object.assign([], Cronos))
+	// 		}, delay);
+	// 	});
+	// }
 
 	saveCronos(cronos) {
 		return new Promise((resolve, reject) => {
@@ -456,25 +517,17 @@ class API {
 		})
 	}
 
-	getGantt() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(JSON.parse(JSON.stringify(Gantt)))
-			}, delay);
-		})
-	}
+	// getAvanco() {
+	// 	return new Promise((resolve, reject) => {
+	// 		resolve(this.generateRandomChart())
+	// 	})
+	// }
 
-	getAvanco() {
-		return new Promise((resolve, reject) => {
-			resolve(this.generateRandomChart())
-		})
-	}
-
-	getEntrega() {
-		return new Promise((resolve, reject) => {
-			resolve(this.generateRandomChart())
-		})
-	}
+	// getEntrega() {
+	// 	return new Promise((resolve, reject) => {
+	// 		resolve(this.generateRandomChart())
+	// 	})
+	// }
 
 	generateRandomChart() {
 		let a = [],

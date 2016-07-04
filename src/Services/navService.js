@@ -1,16 +1,17 @@
 export default class navService {
 	/*@ngInject*/
-	constructor(API, Cache) {
+	constructor(API) {
 		this.obra = {
 			id: 0
 		}
 		this.etapa = {
 			id: 0
 		}
+		this.cronoUpdate = 0
+		this.ganttUpdate = 0
 		this.date = {}
 		this.flag = 0
 		this.API = API
-		this.Cache = Cache
 	}
 
 	setObra(obra) {
@@ -37,41 +38,38 @@ export default class navService {
 		this.date = date
 	}
 
-	eraseCache(which) {
-		this.Cache.delete(which)
+	getUpdate(which) {
+		let base = this.obra.id.toString() + this.etapa.id.toString()
+		switch (which) {
+			case 'cronos':
+				return this.cronoUpdate
+			case 'gantt':
+				return base + this.ganttUpdate.toString()
+			case 'date':
+				return base + this.date.start + this.date.end
+			default:
+				return base
+		}
 	}
 
-	// TODO: Load all the Gantt Data and filter in the controller(only an idea)
 	getGantt() {
 		return new Promise((resolve, reject) => {
-			this.Cache.get('Gantt')
+			this.API.getGantt(this.getUpdate('gantt'), this.obra.id, this.etapa.id)
 				.then(data => {
 					resolve(data)
 				})
-				.catch(e => {
-					if (!e) {
-						this.API.getGantt(this.obra.id, this.etapa.id)
-							.then(data => {
-									resolve(data)
-									this.syncGantt(data)
-							})
-							.catch(err => {
-								reject(err)
-							})
-					}
+				.catch(err => {
+					reject(err)
 				})
 		})
-	}
-
-	syncGantt(data) {
-		this.Cache.setValue('Gantt', data)
 	}
 
 	saveGantt(data) {
 		return new Promise((resolve, reject) => {
 			this.API.saveGantt(data)
 				.then(r => {
-					resolve(r)
+					this.ganttUpdate++
+						resolve(r)
 				})
 				.catch(err => {
 					reject(err)
@@ -81,7 +79,7 @@ export default class navService {
 
 	getAvanco() {
 		return new Promise((resolve, reject) => {
-			this.API.getAvanco(this.obra.id, this.etapa.id, this.date)
+			this.API.getAvanco(this.getUpdate('date'), this.obra.id, this.etapa.id, this.date)
 				.then(data => resolve(data))
 				.catch(err => reject(err))
 		})
@@ -89,7 +87,7 @@ export default class navService {
 
 	getEntrega() {
 		return new Promise((resolve, reject) => {
-			this.API.getEntrega(this.obra.id, this.etapa.id, this.date)
+			this.API.getEntrega(this.getUpdate('date'),this.obra.id, this.etapa.id, this.date)
 				.then(data => resolve(data))
 				.catch(err => reject(err))
 		})
@@ -126,34 +124,19 @@ export default class navService {
 	}
 
 	getCronogramas() {
+		console.log(this.getUpdate('cronos'));
 		return new Promise((resolve, reject) => {
-			this.Cache.get('Cronogramas')
+			this.API.getCronogramas(this.getUpdate('cronos'))
 				.then(cronos => {
 					if (cronos.length > 0)
 						resolve(cronos)
 					else
 						resolve(null)
 				})
-				.catch(e => {
-					if (!e) {
-						this.API.getCronogramas()
-							.then(cronos => {
-								if (cronos.length > 0) {
-									resolve(cronos)
-									this.syncCronogramas(cronos)
-								} else
-									resolve(null)
-							})
-							.catch(err => {
-								reject(err)
-							})
-					}
+				.catch(err => {
+					reject(err)
 				})
 		})
-	}
-
-	syncCronogramas(cronos) {
-		this.Cache.setValue('Cronogramas', cronos)
 	}
 
 	flags() {
@@ -176,7 +159,8 @@ export default class navService {
 	saveRevision(cronos) {
 		return new Promise((resolve, reject) => {
 			this.API.saveCronos(cronos).then(() => {
-				resolve(true)
+				this.cronoUpdate++
+					resolve(true)
 			}).catch(e => {
 				reject(e)
 			})
@@ -186,7 +170,8 @@ export default class navService {
 	returnRevision(etapa_id) {
 		return new Promise((resolve, reject) => {
 			this.API.returnRevision(etapa_id).then((novaEtapa) => {
-				resolve(novaEtapa)
+				this.cronoUpdate++
+					resolve(novaEtapa)
 			}).catch(e => {
 				reject(e)
 			})
@@ -195,4 +180,4 @@ export default class navService {
 
 }
 
-navService.$inject = ['API', 'Cache']
+navService.$inject = ['API']

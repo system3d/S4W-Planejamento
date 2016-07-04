@@ -22,6 +22,10 @@ export default class EntregaController {
 		this.navService.getEntrega()
 			.then(data => {
 				this.data = data
+				this.$scope.$digest()
+			})
+			.catch(() => {
+				flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....')
 			})
 	}
 }

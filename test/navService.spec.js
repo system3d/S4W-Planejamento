@@ -195,52 +195,53 @@ describe("navService with MockApi", function() {
 
 });
 
-describe("navService with MockCache", function() {
-
-	class mockCache {
-		constructor() {
-			this.teste = null
-		}
-
-		setValue(useless, value) {
-			this.teste = value
-		}
-
-	}
-
-	let nav;
-
-	beforeEach(() => {
-		nav = new navService(new API(), new mockCache());
-	});
-
-	describe("syncCronogramas", function() {
-
-		it("Should send the crono to cache", function() {
-			nav.syncCronogramas('cold winter night')
-			expect(nav.Cache.teste).toBe('cold winter night')
-			nav.syncCronogramas('hot summer morning')
-			expect(nav.Cache.teste).toBe('hot summer morning')
-		});
-
-	});
-
-	describe("syncGantt", () => {
-		it('Should send the gantt to cache', () => {
-			nav.syncGantt('cold winter night')
-			expect(nav.Cache.teste).toBe('cold winter night')
-			nav.syncGantt('hot summer morning')
-			expect(nav.Cache.teste).toBe('hot summer morning')
-		})
-	})
-
-});
+// describe("navService with MockCache", function() {
+//
+// 	class mockCache {
+// 		constructor() {
+// 			this.teste = null
+// 		}
+//
+// 		setValue(useless, value) {
+// 			this.teste = value
+// 		}
+//
+// 	}
+//
+// 	let nav;
+//
+// 	beforeEach(() => {
+// 		nav = new navService(new API(), new mockCache());
+// 	});
+//
+// 	describe("syncCronogramas", function() {
+//
+// 		it("Should send the crono to cache", function() {
+// 			nav.syncCronogramas('cold winter night')
+// 			expect(nav.Cache.teste).toBe('cold winter night')
+// 			nav.syncCronogramas('hot summer morning')
+// 			expect(nav.Cache.teste).toBe('hot summer morning')
+// 		});
+//
+// 	});
+//
+// 	describe("syncGantt", () => {
+// 		it('Should send the gantt to cache', () => {
+// 			nav.syncGantt('cold winter night')
+// 			expect(nav.Cache.teste).toBe('cold winter night')
+// 			nav.syncGantt('hot summer morning')
+// 			expect(nav.Cache.teste).toBe('hot summer morning')
+// 		})
+// 	})
+//
+// });
 
 describe("Mock API Cache Normal", () => {
 
 	class mockApi {
 		constructor() {
 			this.teste = null
+			this.update = null
 		}
 
 		saveCronos(value) {
@@ -257,9 +258,10 @@ describe("Mock API Cache Normal", () => {
 			})
 		}
 
-		getGantt(value) {
+		getGantt(value, otherValue) {
 			return new Promise((resolve) => {
-				this.teste = value
+				this.teste = otherValue
+				this.update = value
 				resolve(true)
 			})
 		}
@@ -299,21 +301,7 @@ describe("Mock API Cache Normal", () => {
 			nav.getGantt()
 				.then(() => {
 					expect(nav.API.teste).toEqual(58)
-					done()
-				})
-		})
-
-		it('Should get Gantt from cache', (done) => {
-			nav.obra = {
-				id: 58
-			}
-			nav.Cache.Memory.push({
-				key: 'Gantt',
-				payload: 'WE`RE WALING OVER HILLS'
-			})
-			nav.getGantt()
-				.then(() => {
-					expect(nav.API.teste).toBe(null)
+					expect(nav.API.update).toEqual('5800')
 					done()
 				})
 		})

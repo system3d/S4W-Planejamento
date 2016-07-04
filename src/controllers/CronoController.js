@@ -18,8 +18,12 @@ export default class CronoController {
 				return this.navService.flags()
 			},
 			() => {
-				if (this.Cronogramas.length < 1)
+				if (this.Cronogramas.length < 1) {
 					this.loadCrono()
+						.catch(() => {
+							flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....')
+						})
+				}
 				this.setFilters()
 			}, true);
 
@@ -63,7 +67,6 @@ export default class CronoController {
 	resetCrono() {
 		this.Cronogramas = angular.fromJson(angular.toJson(this.CronogramasLegacy))
 		this.touched = false
-		this.syncCache()
 	}
 
 	updateLegacy() {
@@ -107,7 +110,6 @@ export default class CronoController {
 							this.augmentRevision()
 							this.resetToucheds()
 							this.updateLegacy()
-							this.syncCache()
 						})
 						.catch(() => {
 							this.sweetalert.swal("Ooops...", "Erro ao Salvar Revisão", "error")
@@ -154,7 +156,8 @@ export default class CronoController {
 							this.changeReturned(n)
 							this.changeReturnedLegacy(n)
 						})
-						.catch(() => {
+						.catch((err) => {
+							console.log(err)
 							this.sweetalert.swal("Ooops...", "Erro ao Reverter Revisão", "error")
 						})
 				}
@@ -181,7 +184,6 @@ export default class CronoController {
 			}
 		})
 		this.$scope.$digest()
-		this.syncCache()
 	}
 
 	changeReturnedLegacy(etapa) {
@@ -193,14 +195,6 @@ export default class CronoController {
 		})
 	}
 
-	syncCache(){
-		this.navService.syncCronogramas(this.Cronogramas)
-	}
-
 }
 
 CronoController.$inject = ['$scope', 'navService', 'SweetAlert']
-
-
-// TODO: Unit Test for Failure(reject Promises mostly, must write a mock service for it)
-// TODO: THINK ABOUT: Advise the maluco when he is trying to leave with changed data and when he is saving with unseen rows changed

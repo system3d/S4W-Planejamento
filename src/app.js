@@ -17,7 +17,7 @@ import AvancoController from './controllers/AvancoController'
 
 import navService from './Services/navService'
 import api from '../tools/API/API'
-import cacheService from './Services/cacheService'
+// import cacheService from './Services/cacheService'
 
 import bdDatepicker from './directives/bdDatepickerDirective'
 
@@ -40,7 +40,7 @@ export default angular.module('app', [routing,gantt, 'oitozero.ngSweetAlert', 'a
 	.controller('CronoController', CronoController)
 	.controller('EntregaController', EntregaController)
 	.controller('AvancoController', AvancoController)
-	.service('Cache', cacheService)
+	// .service('Cache', cacheService)
 	.service('navService', navService)
 	.service('API', api)
 	// .directive('bdDatepicker',() => new bdDatepicker())

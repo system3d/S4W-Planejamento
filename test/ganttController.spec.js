@@ -24,13 +24,6 @@ describe("Chart Controllers", () => {
 			})
 		}
 
-		eraseCache() {
-			return new Promise((resolve) => {
-				this.teste2 = 'ERASEDCACHE'
-				resolve(this.teste)
-			})
-		}
-
 	}
 
 
@@ -69,7 +62,6 @@ describe("Chart Controllers", () => {
 
 		it( 'Should Erase the cache and load new data' , (done) => {
 			ctrl.rootScope.$on('GanttReload', (e, data) => {
-				expect(ctrl.navService.teste2).toEqual('ERASEDCACHE')
 				expect(ctrl.ganttData).toEqual('GETGANTT')
 				expect(data).toEqual('GETGANTT')
 				done()

@@ -87,10 +87,12 @@ export default class MainController {
 				this.navService.getEtapas(id)
 					.then(etapas => {
 						this.Etapas = etapas
-						this.Etapas.unshift({
-							'id': 0,
-							'codigo': 'Todas'
-						});
+						if(this.Etapas[0].id !== 0){
+							this.Etapas.unshift({
+								'id': 0,
+								'codigo': 'Todas'
+							});
+						}
 						this.etapa = this.Etapas[0]
 						this.$scope.$digest()
 						resolve(true)
@@ -110,3 +112,5 @@ export default class MainController {
 }
 
 MainController.$inject = ['$location', '$scope', 'navService', '$rootScope']
+
+// TODO: Loading pre-Bootstrap
