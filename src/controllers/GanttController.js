@@ -52,5 +52,3 @@ export default class GanttController {
 }
 
 GanttController.$inject = ['$scope', 'navService', '$rootScope']
-
-// TODO: Make Gantt compatible with Planejamento data

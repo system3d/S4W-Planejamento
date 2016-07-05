@@ -12,6 +12,3 @@ register('gantt').directive('zoomIn', zoomIn);
 register('gantt').directive('zoomOut', zoomOut);
 register('gantt').directive('ganttToggle', toggle);
 register('gantt').directive('saveGantt', save);
-
-// TODO: write the APIService
-// TODO: Back End

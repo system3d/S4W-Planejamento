@@ -213,148 +213,70 @@ const Gantt = {
 	}]
 }
 
-const Obras = [{
-	id: 1,
-	codigo: "Trans",
-	nome: "TransVilmar",
-	descricao: "A noite, Vilmar não segue padrões sociais",
-	cidade: "New York",
-	endereco: "53990-580, Travessa Agostinho Camacho, 1466 - Fidalgo d'Oeste - SC",
-	cep: "95320-000",
-	cliente_id: 2,
-	status: 1,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 2,
-	codigo: "C02",
-	nome: "Cascata cascavel",
-	descricao: "Construção desse treco",
-	cidade: "Nova Prata - RS",
-	endereco: "Rua Capoeiras 22",
-	cep: "95320-000",
-	cliente_id: 5,
-	status: 1,
-	user_id: 6,
-	locatario_id: 1
-}, {
-	id: 3,
-	codigo: "M4",
-	nome: "Marcha Imperial",
-	descricao: "Tan Tan Tan,TanTanTan TanTanTan, Tan Tan Tan, TanTanTan TanTan Tan",
-	cidade: "Nova Prata - RS",
-	endereco: "Rua Capoeiras 22",
-	cep: "95320-000",
-	cliente_id: 6,
-	status: 1,
-	user_id: 7,
-	locatario_id: 1
-}, {
-	id: 4,
-	codigo: "L5",
-	nome: "Obra Legal",
-	descricao: "Obra Legal",
-	cidade: "Nova Prata",
-	endereco: "Rua Capoeiras 22 - Bairro Santa Cruz",
-	cep: "95320-000",
-	cliente_id: 8,
-	status: 1,
-	user_id: 10,
-	locatario_id: 1
-}, {
-	id: 5,
-	codigo: "T5",
-	nome: "Wish you were Potato",
-	descricao: "Not Really",
-	cidade: "New Silver - BS",
-	endereco: "St. Street Baby",
-	cep: "59595-595",
-	cliente_id: 2,
-	status: 1,
-	user_id: 3,
-	locatario_id: 1
-}]
-const Etapas = [{
-	id: 1,
-	codigo: "T1",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 1,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 2,
-	codigo: "T2",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 1,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 3,
-	codigo: "T3",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 2,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 4,
-	codigo: "T4",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 2,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 5,
-	codigo: "T5",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 3,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 6,
-	codigo: "T6",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 3,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 7,
-	codigo: "T7",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 4,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 8,
-	codigo: "T8",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 4,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 9,
-	codigo: "T9",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 5,
-	user_id: 3,
-	locatario_id: 1
-}, {
-	id: 10,
-	codigo: "T10",
-	peso: 10234,
-	observacao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nulla fuga quod sed, tempora quo Alias voluptate tempore libero.",
-	obra_id: 5,
-	user_id: 3,
-	locatario_id: 1
-}]
+const Obras = {
+	status: "success",
+	data: [{
+		id: 1,
+		nome: "TransVilmar"
+	}, {
+		id: 2,
+		nome: "Cascata cascavel"
+	}, {
+		id: 3,
+		nome: "Marcha Imperial"
+	}, {
+		id: 4,
+		nome: "Obra Legal"
+	}, {
+		id: 5,
+		nome: "Wish you were Potato"
+	}]
+}
+
+const Etapas = {
+	status: "success",
+	data: [{
+		id: 1,
+		codigo: "T1",
+		obra_id: 1
+	}, {
+		id: 2,
+		codigo: "T2",
+		obra_id: 1
+	}, {
+		id: 3,
+		codigo: "T3",
+		obra_id: 2
+	}, {
+		id: 4,
+		codigo: "T4",
+		obra_id: 2
+	}, {
+		id: 5,
+		codigo: "T5",
+		obra_id: 3
+	}, {
+		id: 6,
+		codigo: "T6",
+		obra_id: 3
+	}, {
+		id: 7,
+		codigo: "T7",
+		obra_id: 4
+	}, {
+		id: 8,
+		codigo: "T8",
+		obra_id: 4
+	}, {
+		id: 9,
+		codigo: "T9",
+		obra_id: 5
+	}, {
+		id: 10,
+		codigo: "T10",
+		obra_id: 5
+	}]
+}
 
 const Cronogramas = [{
 	obra_id: 1,
@@ -365,19 +287,23 @@ const Cronogramas = [{
 	cronograma: {
 		projeto: {
 			inicio: '2016-06-27',
-			final: '2016-07-12'
+			final: '2016-07-12',
+			id: 1
 		},
 		fabricacao: {
 			inicio: '2016-08-27',
-			final: '2016-09-12'
+			final: '2016-09-12',
+			id: 2
 		},
 		expedicao: {
 			inicio: '2016-10-27',
-			final: '2016-11-12'
+			final: '2016-11-12',
+			id: 3
 		},
 		montagem: {
 			inicio: '2016-12-27',
-			final: '2017-01-12'
+			final: '2017-01-12',
+			id: 4
 		}
 	}
 }, {
@@ -389,19 +315,23 @@ const Cronogramas = [{
 	cronograma: {
 		projeto: {
 			inicio: '2016-06-27',
-			final: '2016-07-12'
+			final: '2016-07-12',
+			id: 1
 		},
 		fabricacao: {
 			inicio: '2016-08-27',
-			final: '2016-09-12'
+			final: '2016-09-12',
+			id: 2
 		},
 		expedicao: {
 			inicio: '2016-10-27',
-			final: '2016-11-12'
+			final: '2016-11-12',
+			id: 3
 		},
 		montagem: {
 			inicio: '2016-12-27',
-			final: '2017-01-12'
+			final: '2017-01-12',
+			id: 4
 		}
 	}
 }, {
@@ -413,19 +343,23 @@ const Cronogramas = [{
 	cronograma: {
 		projeto: {
 			inicio: '2016-06-27',
-			final: '2016-07-12'
+			final: '2016-07-12',
+			id: 1
 		},
 		fabricacao: {
 			inicio: '2016-08-27',
-			final: '2016-09-12'
+			final: '2016-09-12',
+			id: 2
 		},
 		expedicao: {
 			inicio: '2016-10-27',
-			final: '2016-11-12'
+			final: '2016-11-12',
+			id: 3
 		},
 		montagem: {
 			inicio: '2016-12-27',
-			final: '2017-01-12'
+			final: '2017-01-12',
+			id: 4
 		}
 	}
 }, {
@@ -437,19 +371,23 @@ const Cronogramas = [{
 	cronograma: {
 		projeto: {
 			inicio: null,
-			final: null
+			final: null,
+			id: 1
 		},
 		fabricacao: {
 			inicio: null,
-			final: null
+			final: null,
+			id: 2
 		},
 		expedicao: {
 			inicio: null,
-			final: null
+			final: null,
+			id: 3
 		},
 		montagem: {
 			inicio: null,
-			final: null
+			final: null,
+			id: 4
 		}
 	}
 }]
@@ -484,19 +422,27 @@ class API {
 						}
 					}
 				})
+				let Cro = {
+					status: "success",
+					data: Cronos
+				}
 				setTimeout(() => {
 					console.log('Api Cronos');
-					resolve(Object.assign([], Cronos))
+					resolve(Object.assign([], Cro))
 				}, delay);
 			});
 		})
 
 		this.getEtapas = _memoize(id => {
 			return new Promise((resolve, reject) => {
-				let Etaps = Etapas.filter((e) => e.obra_id === id)
+				let Etaps = Etapas.data.filter((e) => e.obra_id === id)
+				let Eta = {
+					status: "success",
+					data: Etaps
+				}
 				setTimeout(() => {
 					console.log('Api Etapas');
-					resolve(Object.assign([], Etaps))
+					resolve(JSON.parse(JSON.stringify(Eta)))
 				}, delay);
 			});
 		})
@@ -520,7 +466,7 @@ class API {
 	getObras() {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
-				resolve(Object.assign([], Obras))
+				resolve(JSON.parse(JSON.stringify(Obras)))
 			}, delay);
 		});
 	}

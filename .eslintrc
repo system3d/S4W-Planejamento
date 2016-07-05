@@ -19,7 +19,7 @@
   "rules": {
     "comma-dangle": 1,
     "quotes": 0,
-    "no-console": 0,
+    "no-console": 1,
     "no-debugger": 1,
     "no-var": 1,
     "semi": 0,
@@ -32,6 +32,8 @@
     "angular/document-service": 0,
     "angular/no-service-method": 0,
     "angular/log": 0,
-    "angular/module-getter": 0
+    "angular/module-getter": 0,
+    "angular/json-functions": 0,
+    "angular/window-service": 1
   }
 }

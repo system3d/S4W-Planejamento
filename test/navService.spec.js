@@ -109,9 +109,8 @@ describe('Navigation Service', () => {
 		it("Should get the avanco data", function(done) {
 			nav.getAvanco()
 				.then(data => {
-					expect(data.length).toBe(2)
+					expect(data.length).toBe(1)
 					expect(data[0].length).toBe(4)
-					expect(data[1].length).toBe(4)
 					done()
 				})
 		});
@@ -123,9 +122,8 @@ describe('Navigation Service', () => {
 		it("Should get the entrega data", function(done) {
 			nav.getEntrega()
 				.then(data => {
-					expect(data.length).toBe(2)
+					expect(data.length).toBe(1)
 					expect(data[0].length).toBe(4)
-					expect(data[1].length).toBe(4)
 					done()
 				})
 		});

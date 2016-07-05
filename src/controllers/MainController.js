@@ -114,4 +114,3 @@ export default class MainController {
 MainController.$inject = ['$location', '$scope', 'navService', '$rootScope']
 
 // TODO: Loading pre-Bootstrap
-// TODO: Make Chasrts dynamic(labels, series and data coming from back-end)

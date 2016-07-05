@@ -56,7 +56,8 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.getGantt(this.getUpdate('gantt'), this.obra.id, this.etapa.id)
 				.then(data => {
-					resolve(data)
+					console.log(data.data);
+					resolve(data.data)
 				})
 				.catch(err => {
 					reject(err)
@@ -80,7 +81,10 @@ export default class navService {
 	getAvanco() {
 		return new Promise((resolve, reject) => {
 			this.API.getAvanco(this.getUpdate('date'), this.obra.id, this.etapa.id, this.date)
-				.then(data => resolve(data))
+				.then(data => {
+					let res = data.data.map(d => parseInt(d))
+					resolve(res)
+				})
 				.catch(err => reject(err))
 		})
 	}
@@ -88,7 +92,10 @@ export default class navService {
 	getEntrega() {
 		return new Promise((resolve, reject) => {
 			this.API.getEntrega(this.getUpdate('date'),this.obra.id, this.etapa.id, this.date)
-				.then(data => resolve(data))
+				.then(data => {
+					let res = data.data.map(d => parseInt(d))
+					resolve(res)
+				})
 				.catch(err => reject(err))
 		})
 	}
@@ -97,10 +104,11 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.getObras()
 				.then(obras => {
-					if (obras.length > 0)
-						resolve(obras)
+					console.log(obras.data.data);
+					if (obras.data.status == 'success')
+						resolve(obras.data.data)
 					else
-						resolve(null)
+						reject(obras.data.data)
 				})
 				.catch(err => {
 					reject(err)
@@ -112,10 +120,11 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.getEtapas(id)
 				.then(etapas => {
-					if (etapas.length > 0)
-						resolve(etapas)
+					console.log(etapas.data.data);
+					if (etapas.data.status == 'success')
+						resolve(etapas.data.data)
 					else
-						resolve(null)
+						reject(cronos.data.data)
 				})
 				.catch(err => {
 					reject(err)
@@ -127,10 +136,11 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.getCronogramas(this.getUpdate('cronos'))
 				.then(cronos => {
-					if (cronos.length > 0)
-						resolve(cronos)
+					console.log(cronos.data.data);
+					if (cronos.data.status == 'success')
+						resolve(cronos.data.data)
 					else
-						resolve(null)
+						reject(cronos.data.data)
 				})
 				.catch(err => {
 					reject(err)

@@ -16,7 +16,10 @@ import EntregaController from './controllers/EntregaController'
 import AvancoController from './controllers/AvancoController'
 
 import navService from './Services/navService'
-import api from '../tools/API/API'
+
+import api from './Services/APIService'
+// import api from '../tools/API/API'
+
 // import cacheService from './Services/cacheService'
 
 import bdDatepicker from './directives/bdDatepickerDirective'
