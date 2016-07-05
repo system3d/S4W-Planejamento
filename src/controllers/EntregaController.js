@@ -4,7 +4,7 @@ export default class EntregaController {
 		this.$scope = $scope
 		this.navService = navService
 		this.labels = ["Projeto", "Fabricação", "Expedição", "Montagem"];
-		this.series = ['Previsto', 'Realizado'];
+		this.series = ['Previsto(kg)'];
 		this.data = [];
 
 		this.$scope.$watch(

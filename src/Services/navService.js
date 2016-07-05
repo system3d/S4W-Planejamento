@@ -124,7 +124,6 @@ export default class navService {
 	}
 
 	getCronogramas() {
-		console.log(this.getUpdate('cronos'));
 		return new Promise((resolve, reject) => {
 			this.API.getCronogramas(this.getUpdate('cronos'))
 				.then(cronos => {

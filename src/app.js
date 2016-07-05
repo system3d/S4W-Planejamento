@@ -26,7 +26,10 @@ import '../node_modules/angular-sweetalert/SweetAlert'
 // import '../node_modules/chart.js/dist/Chart.min'
 // import './plugins/chartjs/Chart.js'
 
-import '../node_modules/angular-chart.js/angular-chart'
+import 'angular-chart.js'
+
+// import 'npm-angular-chart'
+
 
 // import './plugins/angular-chart/angular-chart.min'
 

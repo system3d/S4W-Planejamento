@@ -25,6 +25,7 @@ export class zoomIn {
 						break;
 				}
 				$scope.scale++;
+				this.helper.balanceGantt();
 			}
 		});
 	}
@@ -56,6 +57,7 @@ export class zoomOut {
 						break;
 				}
 				$scope.scale--;
+				this.helper.balanceGantt();
 			}
 		});
 	}

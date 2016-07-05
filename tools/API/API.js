@@ -1,5 +1,66 @@
 import delay from './delay'
 
+const GanttPlan = {
+	data: [{
+		id: "O2",
+		text: "Robson",
+		start_date: "28/06/2016",
+		end_date: "06/10/2016",
+		progress: 0,
+		open: false,
+		color: "#052DD9"
+	}, {
+		id: "E1",
+		text: "Romario",
+		progress: 0,
+		dirty: "false",
+		open: true,
+		start_date: "28/06/2016",
+		end_date: "06/10/2016",
+		parent: "O2"
+	}, {
+		id: "T698",
+		text: "Projeto",
+		progress: 0,
+		start_date: "28/06/2016",
+		end_date: "27/07/2016",
+		parent: "E1",
+		color: "#289A00"
+	}, {
+		id: "R698",
+		text: "Realizado",
+		progress: 0,
+		start_date: "05\/07\/2016",
+		end_date: "25\/07\/2016",
+		parent: "T698",
+		color: "#0CFF00 "
+	}, {
+		id: "T699",
+		text: "Fabrica\u00e7\u00e3o",
+		progress: 0,
+		start_date: "28/07/2016",
+		end_date: "06/08/2016",
+		parent: "E1",
+		color: "#A200FF"
+	}, {
+		id: "T700",
+		text: 'Expedi\u00e7\u00e3o',
+		progress: 0,
+		start_date: "07/08/2016",
+		end_date: "23/08/2016",
+		parent: "E1",
+		color: "#A70000"
+	}, {
+		id: "T701",
+		text: "Montagem",
+		progress: 0,
+		start_date: "10/09/2016",
+		end_date: "06/10/2016",
+		parent: "E1",
+		color: "#008977"
+	}]
+}
+
 const Gantt = {
 	data: [{
 		id: "E25",
@@ -403,7 +464,7 @@ class API {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {
 					console.log('Api Gantt');
-					resolve(JSON.parse(JSON.stringify(Gantt)))
+					resolve(JSON.parse(JSON.stringify(GanttPlan)))
 				}, delay);
 			})
 		})
@@ -430,7 +491,7 @@ class API {
 			});
 		})
 
-		this.getEtapas = _memoize( id => {
+		this.getEtapas = _memoize(id => {
 			return new Promise((resolve, reject) => {
 				let Etaps = Etapas.filter((e) => e.obra_id === id)
 				setTimeout(() => {
@@ -440,14 +501,14 @@ class API {
 			});
 		})
 
-		this.getAvanco = _memoize( (u,o,e,d) => {
+		this.getAvanco = _memoize((u, o, e, d) => {
 			return new Promise((resolve, reject) => {
 				console.log('Api Avanco');
 				resolve(this.generateRandomChart())
 			})
 		})
 
-		this.getEntrega = _memoize( (u,o,e,d) => {
+		this.getEntrega = _memoize((u, o, e, d) => {
 			return new Promise((resolve, reject) => {
 				console.log('Api Entrega');
 				resolve(this.generateRandomChart())
@@ -511,9 +572,13 @@ class API {
 		})
 	}
 
-	saveGantt(data){
+	saveGantt(data) {
 		return new Promise((resolve, reject) => {
-				resolve({title: 'Sucesso',msg: 'Cronograma salvo com sucesso', status: 'success'})
+			resolve({
+				title: 'Sucesso',
+				msg: 'Cronograma salvo com sucesso',
+				status: 'success'
+			})
 		})
 	}
 
@@ -531,14 +596,11 @@ class API {
 
 	generateRandomChart() {
 		let a = [],
-			b = [],
 			c = [];
 		for (var i = 0; i < 4; i++) {
 			a.push(Math.floor(Math.random() * 90 + 10))
-			b.push(Math.floor(Math.random() * 90 + 10))
 		}
 		c.push(a)
-		c.push(b)
 		return c
 	}
 

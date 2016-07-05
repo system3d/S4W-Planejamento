@@ -14,6 +14,7 @@ export default class ganttDirective {
 	}
 
 	link($scope, $element, $attrs) {
+
 		gantt.config.row_height = 24;
 		gantt.config.scale_unit = "year";
 		gantt.config.date_scale = "%Y";
@@ -24,33 +25,74 @@ export default class ganttDirective {
 			date: "%M"
 		}];
 
-		gantt.templates.tooltip_text = function(start, end, task) {
+		gantt.templates.tooltip_text = (start, end, task) => {
 			let starto = new Date(task.start_date)
-			start = moment(starto).format("L");
+			start = moment(starto).format("DD/MM/YYYY");
 			end = starto.setDate(starto.getDate() + task.duration);
 			let endo = new Date(end);
-			let termino = moment(endo).format("L");
-			return task.text + "<br/><b>Começo:</b> " + start + "<br/><b>Término:</b> " + termino;
+			let termino = moment(endo).format("DD/MM/YYYY");
+			return task.text + "<br/><b>Começo:</b> " + start + "<br/><b>Previsão de Término:</b> " + termino;
 		};
 
 		gantt.config.round_dnd_dates = false;
 		gantt.init($element[0]);
+
+		function createBox(sizes, class_name) {
+			let box = document.createElement('div');
+			box.style.cssText = [
+				"height:" + sizes.height + "px",
+				"line-height:" + sizes.height + "px",
+				"width:" + sizes.width + "px",
+				"top:" + sizes.top + 'px',
+				"left:" + sizes.left + "px",
+				"position:absolute"
+			].join(";");
+			box.className = class_name;
+			return box;
+		}
+
 		gantt.templates.grid_row_class = gantt.templates.task_class = function(start, end, task) {
 			let css = [];
 			if (gantt.hasChild(task.id)) {
 				css.push("task-parent");
 			}
-			if (task.id.match(/[E,R]/)) {
+			if (task.id.match(/[E,O,R]/)) {
 				css.push("task-noDrag");
 			}
-			if (task.bright !== undefined) {
-				if (task.bright) {
-					css.push("task-blackText");
-				}
+			if (!task.$open && gantt.hasChild(task.id) && task.id.match(/[E,O]/)) {
+				css.push("task-collapsed");
 			}
 
 			return css.join(" ");
 		};
+
+		gantt.addTaskLayer(function show_hidden(task) {
+			if (!task.$open && gantt.hasChild(task.id) && task.id.match(/[E,O]/)) {
+				let sub_height = gantt.config.row_height - 5,
+					el = document.createElement('div'),
+					sizes = gantt.getTaskPosition(task);
+
+				let sub_tasks = gantt.getChildren(task.id);
+
+				let child_el;
+
+				for (let i = 0; i < sub_tasks.length; i++) {
+					let child = gantt.getTask(sub_tasks[i]);
+					let child_sizes = gantt.getTaskPosition(child);
+
+					child_el = createBox({
+						height: sub_height,
+						top: sizes.top,
+						left: child_sizes.left,
+						width: child_sizes.width
+					}, "child_preview gantt_task_line");
+					child_el.innerHTML = child.text;
+					el.appendChild(child_el);
+				}
+				return el;
+			}
+			return false;
+		});
 
 		gantt.config.grid_width = 250;
 		gantt.config.add_column = false;
@@ -58,7 +100,7 @@ export default class ganttDirective {
 		gantt.config.show_links = false;
 		gantt.config.autofit = true;
 		gantt.config.autosize = true;
-		gantt.config.fit_tasks = true;
+		// gantt.config.fit_tasks = true;
 		gantt.locale = {
 			date: {
 				month_full: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
@@ -81,7 +123,7 @@ export default class ganttDirective {
 				confirm_deleting: "Tem certeza que deseja excluir?",
 				section_description: "Descrição",
 				section_time: "Período de tempo",
-				section_type: "Type",
+				section_type: "Tipo",
 				column_text: "Nome tarefa",
 				column_start_date: "Data início",
 				column_duration: "Duração",
@@ -90,14 +132,14 @@ export default class ganttDirective {
 				confirm_link_deleting: "será apagado",
 				link_start: " (início)",
 				link_end: " (fim)",
-				type_task: "tarefa",
+				type_task: "Tarefa",
 				type_project: "Projeto",
 				type_milestone: "Marco",
 				minutes: "Minutos",
 				hours: "Horas",
 				days: "Dias",
 				weeks: "Semanas",
-				months: "Meses",
+				months: "Mêses",
 				years: "Anos"
 			}
 		};
@@ -111,11 +153,17 @@ export default class ganttDirective {
 
 
 		gantt.attachEvent("onBeforeTaskDrag", function(id, mode, e) {
-			if (id.match(/[E,R]/)) {
+			if (id.match(/[E,O,R]/)) {
 				return false;
 			}
 			return true;
 		});
+
+		gantt.attachEvent("onAfterTaskDrag", (id, mode, task, original) => {
+			setTimeout(() => {
+				this.helper.balanceGantt();
+			}, 300);
+		})
 
 		gantt.attachEvent("onTaskDrag", (id, mode, task, original) => {
 			this.$rootScope.$broadcast('GanttSaveButton', true);
@@ -123,8 +171,12 @@ export default class ganttDirective {
 			let endDate = new Date(task.end_date);
 			let etapa_id = gantt.getParent(task.id);
 			let etapa = gantt.getTask(etapa_id);
+			let obra_id = gantt.getParent(etapa_id);
+			let obra = gantt.getTask(obra_id);
 			let etapaEndDate = etapa.end_date;
 			let etapaStartDate = etapa.start_date;
+			let obraEndDate = obra.end_date;
+			let obraStartDate = obra.start_date;
 			etapa.dirty = 'true';
 			if (endDate > etapaEndDate) {
 				etapa.end_date = endDate;
@@ -166,6 +218,50 @@ export default class ganttDirective {
 				if (major == true) {
 					etapa.start_date = startDate;
 					gantt.updateTask(etapa_id);
+					gantt.refreshData();
+				}
+			}
+
+			if (etapaEndDate > obraEndDate) {
+				obra.end_date = etapaEndDate;
+				gantt.updateTask(obra_id);
+				gantt.refreshData();
+			} else {
+				let major = true;
+				let childrens = gantt.getChildren(obra_id);
+				childrens.forEach(function(task_id) {
+					let new_task = gantt.getTask(task_id);
+					if (new_task.id != task.id && new_task.id.match(/[E]/)) {
+						if (new_task.end_date >= etapaEndDate) {
+							major = false;
+						}
+					}
+				});
+				if (major == true) {
+					obra.end_date = etapaEndDate;
+					gantt.updateTask(obra_id);
+					gantt.refreshData();
+				}
+			}
+
+			if (etapaStartDate < obraStartDate) {
+				obra.start_date = etapaStartDate;
+				gantt.updateTask(obra_id);
+				gantt.refreshData();
+			} else {
+				let major = true;
+				let childrens = gantt.getChildren(obra_id);
+				childrens.forEach(function(task_id) {
+					let new_task = gantt.getTask(task_id);
+					if (new_task.id != task.id && new_task.id.match(/[E]/)) {
+						if (new_task.start_date <= etapaStartDate) {
+							major = false;
+						}
+					}
+				});
+				if (major == true) {
+					obra.start_date = etapaStartDate;
+					gantt.updateTask(obra_id);
 					gantt.refreshData();
 				}
 			}
