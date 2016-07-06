@@ -6,19 +6,23 @@ export default class GanttController {
 		this.rootScope = $rootScope
 		this.ganttData = []
 		this.loadGantt()
-		.catch( () => {
-			flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
-		})
+			.catch(() => {
+				flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
+			})
 		this.rootScope.$on('rloadGantt', () => {
 			this.reloadGantt()
 		})
+
+		document.addEventListener("toggleSidebar", () => {
+			this.rootScope.$broadcast('ganttResize', this.ganttData);
+		}, false);
 
 		this.$scope.$watch(
 			() => {
 				return this.navService.flags()
 			},
-			(n,o) => {
-				if(n !== o)
+			(n, o) => {
+				if (n !== o)
 					this.reloadGantt()
 			}, true);
 	}
@@ -44,8 +48,8 @@ export default class GanttController {
 			.then(() => {
 				this.rootScope.$broadcast('GanttReload', this.ganttData);
 			})
-			.catch( () => {
-				flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
+			.catch(() => {
+				flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
 			})
 	}
 

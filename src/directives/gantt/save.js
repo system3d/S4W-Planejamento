@@ -31,7 +31,8 @@ export default class save {
 						this.navService.saveGantt(serialized)
 						.then( r => {
 							let rStatus = (r.status == 'danger') ? 'error' : r.status;
-							this.swal.swal(r.title, r.msg, rStatus);
+							let rTitle = (rStatus == 'error') ? 'Oops...' : 'Sucesso';
+							this.swal.swal(rTitle, r.data, rStatus);
 							if (r.status == 'success') {
 								let ganttData = gantt.serialize().data;
 								ganttData.forEach(function(task) {
@@ -47,6 +48,9 @@ export default class save {
 								this.rootScope.$broadcast('rloadGantt', true);
 								this.rootScope.$broadcast('GanttSaveButton', false);
 							}
+						})
+						.catch( () => {
+							this.swal.swal('Oops...', 'Erro ao Salvar Cronograma', 'error');
 						})
 					}
 				})

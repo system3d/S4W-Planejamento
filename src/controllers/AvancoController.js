@@ -8,6 +8,12 @@ export default class AvancoController {
 			this.$scope.$broadcast('highchartsng.reflow')
 		}, 500);
 
+		document.addEventListener("toggleSidebar", () => {
+			$timeout(() => {
+				this.$scope.$broadcast('highchartsng.reflow')
+			}, 500);
+		}, false);
+
 
 		this.$scope.$watch(
 			() => {

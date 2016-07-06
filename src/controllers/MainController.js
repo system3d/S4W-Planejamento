@@ -2,8 +2,9 @@ import moment from 'moment'
 
 export default class MainController {
 	constructor($location, $scope, navService, $rootScope) {
-		let activeTemp = $location.absUrl()
-		activeTemp = activeTemp.split('/').pop()
+		let activeTemp = $location.url()
+		activeTemp = activeTemp.split('/')
+		activeTemp = activeTemp.length === 1 ? '' : activeTemp[1]
 		this.active = activeTemp === '' ? 'cronograma' : activeTemp
 		this.$rootScope = $rootScope
 		this.transSide = 0

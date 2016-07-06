@@ -33,9 +33,9 @@ describe("Cronograma Controller", function() {
 	}
 
 
-	beforeEach(inject(function($rootScope, $interval) {
+	beforeEach(inject(function($rootScope, $interval,$timeout) {
 		$scope = $rootScope.$new()
-		ctrl = new CronoController($scope, new navService(new API(), new cache($interval)))
+		ctrl = new CronoController($scope, new navService(new API(), new cache($interval), $timeout))
 	}));
 
 	describe("Constructor", function() {

@@ -1,9 +1,13 @@
 export default class CronoController {
 	/*@ngInject*/
-	constructor($scope, navService, SweetAlert) {
+	constructor($scope, navService, SweetAlert, $timeout) {
 		this.$scope = $scope
+		this.$timeout = $timeout
+		this.retriesAttempt = 0
+		this.loadError = false
 		this.navService = navService
 		this.Cronogramas = []
+		this.loading = true
 		this.CronogramasLegacy = []
 		this.filter = {}
 		this.perPage = 20
@@ -35,16 +39,28 @@ export default class CronoController {
 		})
 	}
 
-	loadCrono() {
+	loadCrono(retry) {
 		return new Promise((resolve) => {
-			this.navService.getCronogramas()
+			this.navService.getCronogramas(retry)
 				.then(cronos => {
 					this.Cronogramas = cronos
 					this.CronogramasLegacy = angular.fromJson(angular.toJson(this.Cronogramas))
+					this.retriesAttempt = 0
+					this.loadError = false
+					this.loading = false
 					this.$scope.$digest()
 					resolve(true)
-				}).catch( () => {
-						flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
+				}).catch((err) => {
+					if (this.retriesAttempt < 5) {
+						this.$timeout(() => {
+							this.loadCrono(true)
+						}, 750);
+						this.retriesAttempt = this.retriesAttempt + 1
+					} else {
+						this.loadError = true
+						this.loading = false
+						this.$scope.$digest()
+					}
 				})
 		})
 	}
@@ -107,6 +123,7 @@ export default class CronoController {
 							this.augmentRevision()
 							this.resetToucheds()
 							this.updateLegacy()
+							this.$scope.$digest()
 						})
 						.catch(() => {
 							this.sweetalert.swal("Ooops...", "Erro ao Salvar Revisão", "error")
@@ -144,7 +161,8 @@ export default class CronoController {
 				showCancelButton: true,
 				confirmButtonColor: "#dd6b55",
 				confirmButtonText: "Confirmar",
-				closeOnConfirm: false
+				closeOnConfirm: false,
+				showLoaderOnConfirm: true
 			},
 			isConfirm => {
 				if (isConfirm) {
@@ -193,4 +211,6 @@ export default class CronoController {
 
 }
 
-CronoController.$inject = ['$scope', 'navService', 'SweetAlert']
+CronoController.$inject = ['$scope', 'navService', 'SweetAlert', '$timeout']
+
+// TODO: Retry load attemp to the other 3 controllers

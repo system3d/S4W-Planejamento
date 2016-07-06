@@ -147,7 +147,15 @@ describe("navService with MockApi", function() {
 		returnRevision(value) {
 			return new Promise((resolve) => {
 				this.teste = value
-				resolve(true)
+				resolve({
+					data: {
+						data: {
+							data: {
+								'data'
+							}
+						}
+					}
+				})
 			})
 		}
 

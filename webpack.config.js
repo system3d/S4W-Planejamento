@@ -57,6 +57,13 @@ if (!isDevServer) {
 	)
 	config.devtool = 'cheap-module-source-map'
 } else {
+	config.plugins.push(
+		new webpack.DefinePlugin({
+			'process.env': {
+				'NODE_ENV': JSON.stringify('development')
+			}
+		})
+	)
 	config.plugins.push(new webpack.HotModuleReplacementPlugin())
 	config.devtool = 'inline-source-map';
 }

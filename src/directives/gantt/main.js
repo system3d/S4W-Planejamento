@@ -296,6 +296,12 @@ export default class ganttDirective {
 			gantt.render();
 		})
 
+		this.$rootScope.$on('ganttResize', () => {
+			setTimeout(function() {
+				gantt.render();
+			}, 600);
+		})
+
 		window.onresize = () => {
 			gantt.render();
 		};

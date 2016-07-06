@@ -11,7 +11,7 @@ describe('MainController', () => {
 
 	beforeEach(inject(function($rootScope) {
 		$location = {
-			absUrl: () => {
+			url: () => {
 				return ''
 			}
 		}

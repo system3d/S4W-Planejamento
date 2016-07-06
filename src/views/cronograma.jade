@@ -1,4 +1,17 @@
-.box.box-primary.box-crono
+.box.box-widget#box-error-loading(ng-show='crono.loadError')
+    i.fa.fa-chain-broken.fa-5x.text-red
+    h4 Erro ao Tentar Conexão com o Servidor. Tente Reiniciar seu Navegador.
+.box.box-widget#box-loading(ng-show='crono.loading')
+  .loader(style='margin-top: 100px')
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+.box.box-primary.box-crono(ng-show='!crono.loading && !crono.loadError')
   .box-body
     table.display.table.table-hover.stripe(cellspacing="0" width="100%")
       thead
@@ -35,17 +48,6 @@
             i.fa.fa-undo.text-red
           td(ng-if='!(cr.revisao > 1)' align='center') 
             i.fa.fa-undo.text-disabled
-        tr(ng-hide='crono.Cronogramas.length')
-          td(colspan='12', align='center', style='padding: 115px')
-            .loader
-              .side
-              .side
-              .side
-              .side
-              .side
-              .side
-              .side
-              .side
         tr(ng-hide="(crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa}).length || !crono.Cronogramas.length")
           td(colspan='12', align='center') Obra não Contêm Etapas
   .box-footer

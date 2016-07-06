@@ -17,10 +17,8 @@ import AvancoController from './controllers/AvancoController'
 
 import navService from './Services/navService'
 
-// import api from './Services/APIService'
-import api from '../tools/API/API'
-
-// import cacheService from './Services/cacheService'
+import api from './Services/APIService'
+import apiDev from '../tools/API/API'
 
 import bdDatepicker from './directives/bdDatepickerDirective'
 
@@ -43,8 +41,14 @@ export default angular.module('app', [routing,gantt, 'oitozero.ngSweetAlert', 'a
 	.controller('AvancoController', AvancoController)
 	// .service('Cache', cacheService)
 	.service('navService', navService)
-	.service('API', api)
+	// .service('API', api)
 	// .directive('bdDatepicker',() => new bdDatepicker())
 	.name
 
 	register('app').directive('bdDatepicker', bdDatepicker);
+
+	if(process.env.NODE_ENV === 'production'){
+		register('app').service('API', api);
+	}else{
+		register('app').service('API', apiDev);
+	}

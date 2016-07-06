@@ -69,7 +69,8 @@ export default class navService {
 			this.API.saveGantt(data)
 				.then(r => {
 					this.ganttUpdate++
-						resolve(r)
+					this.cronoUpdate++
+						resolve(r.data)
 				})
 				.catch(err => {
 					reject(err)
@@ -129,7 +130,10 @@ export default class navService {
 		})
 	}
 
-	getCronogramas() {
+	getCronogramas(retry) {
+		if(retry){
+			this.cronoUpdate++
+		}
 		return new Promise((resolve, reject) => {
 			this.API.getCronogramas(this.getUpdate('cronos'))
 				.then(cronos => {
@@ -176,7 +180,7 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.returnRevision(etapa_id).then((novaEtapa) => {
 				this.cronoUpdate++
-					resolve(novaEtapa)
+					resolve(novaEtapa.data.data)
 			}).catch(e => {
 				reject(e)
 			})

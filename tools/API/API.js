@@ -155,128 +155,108 @@ const Cronogramas = [{
 	etapa_id: 1,
 	etapa: 'T1',
 	revisao: 2,
-	cronograma: [
-		{
-			'inicio': '2016-06-27',
-			'final': '2016-07-12',
-			'id': 1,
-			'nome': 'Projeto'
-		},
-		{
-			'inicio': '2016-08-27',
-			'final': '2016-09-12',
-			'id': 2,
-			'nome': 'Fabricação'
-		},
-		{
-			'inicio': '2016-10-27',
-			'final': '2016-11-12',
-			'id': 3,
-			'nome': 'Expedição'
-		},
-		{
-			'inicio': '2016-12-27',
-			'final': '2017-01-12',
-			'id': 4,
-			'nome': 'Montagem'
-		}
-	]
+	cronograma: [{
+		'inicio': '2016-06-27',
+		'final': '2016-07-12',
+		'id': 1,
+		'nome': 'Projeto'
+	}, {
+		'inicio': '2016-08-27',
+		'final': '2016-09-12',
+		'id': 2,
+		'nome': 'Fabricação'
+	}, {
+		'inicio': '2016-10-27',
+		'final': '2016-11-12',
+		'id': 3,
+		'nome': 'Expedição'
+	}, {
+		'inicio': '2016-12-27',
+		'final': '2017-01-12',
+		'id': 4,
+		'nome': 'Montagem'
+	}]
 }, {
 	obra_id: 1,
 	obra: 'TransVilmar',
 	etapa: 'T2',
 	etapa_id: 2,
 	revisao: 4,
-	cronograma: [
-		{
-			'inicio': '2016-06-27',
-			'final': '2016-07-12',
-			'id': 1,
-			'nome': 'Projeto'
-		},
-		{
-			'inicio': '2016-08-27',
-			'final': '2016-09-12',
-			'id': 2,
-			'nome': 'Fabricação'
-		},
-		{
-			'inicio': '2016-10-27',
-			'final': '2016-11-12',
-			'id': 3,
-			'nome': 'Expedição'
-		},
-		{
-			'inicio': '2016-12-27',
-			'final': '2017-01-12',
-			'id': 4,
-			'nome': 'Montagem'
-		}
-	]
+	cronograma: [{
+		'inicio': '2016-06-27',
+		'final': '2016-07-12',
+		'id': 1,
+		'nome': 'Projeto'
+	}, {
+		'inicio': '2016-08-27',
+		'final': '2016-09-12',
+		'id': 2,
+		'nome': 'Fabricação'
+	}, {
+		'inicio': '2016-10-27',
+		'final': '2016-11-12',
+		'id': 3,
+		'nome': 'Expedição'
+	}, {
+		'inicio': '2016-12-27',
+		'final': '2017-01-12',
+		'id': 4,
+		'nome': 'Montagem'
+	}]
 }, {
 	obra_id: 2,
 	obra: "Cascata cascavel",
 	etapa_id: 3,
 	etapa: 'T3',
 	revisao: 1,
-	cronograma: [
-		{
-			'inicio': '2016-06-27',
-			'final': '2016-07-12',
-			'id': 1,
-			'nome': 'Projeto'
-		},
-		{
-			'inicio': '2016-08-27',
-			'final': '2016-09-12',
-			'id': 2,
-			'nome': 'Fabricação'
-		},
-		{
-			'inicio': '2016-10-27',
-			'final': '2016-11-12',
-			'id': 3,
-			'nome': 'Expedição'
-		},
-		{
-			'inicio': '2016-12-27',
-			'final': '2017-01-12',
-			'id': 4,
-			'nome': 'Montagem'
-		}
-	]
+	cronograma: [{
+		'inicio': '2016-06-27',
+		'final': '2016-07-12',
+		'id': 1,
+		'nome': 'Projeto'
+	}, {
+		'inicio': '2016-08-27',
+		'final': '2016-09-12',
+		'id': 2,
+		'nome': 'Fabricação'
+	}, {
+		'inicio': '2016-10-27',
+		'final': '2016-11-12',
+		'id': 3,
+		'nome': 'Expedição'
+	}, {
+		'inicio': '2016-12-27',
+		'final': '2017-01-12',
+		'id': 4,
+		'nome': 'Montagem'
+	}]
 }, {
 	obra_id: 5,
 	obra: "Wish you were Potato",
 	etapa_id: 10,
 	etapa: 'T8',
 	revisao: 0,
-	cronograma: [
-		{
-			'inicio': null,
-			'final': null,
-			'id': 1,
-			'nome': 'Projeto'
-		},
-		{
-			'inicio': null,
-			'final': null,
-			'id': 2,
-			'nome': 'Fabricação'
-		},
-		{
-			'inicio': null,
-			'final': null,
-			'id': 3,
-			'nome': 'Expedição'
-		},
-		{
-			'inicio': null,
-			'final': null,
-			'id': 4,
-			'nome': 'Montagem'
-		}
-	]
+	cronograma: [{
+		'inicio': null,
+		'final': null,
+		'id': 1,
+		'nome': 'Projeto'
+	}, {
+		'inicio': null,
+		'final': null,
+		'id': 2,
+		'nome': 'Fabricação'
+	}, {
+		'inicio': null,
+		'final': null,
+		'id': 3,
+		'nome': 'Expedição'
+	}, {
+		'inicio': null,
+		'final': null,
+		'id': 4,
+		'nome': 'Montagem'
+	}]
 }]
 
 import _memoize from 'lodash/memoize'
@@ -337,8 +317,6 @@ class API {
 						"data": Etaps
 					}
 				}
-
-
 				setTimeout(() => {
 					console.log('Api Etapas');
 					resolve(JSON.parse(JSON.stringify(Eta)))
@@ -421,16 +399,22 @@ class API {
 		return new Promise((resolve, reject) => {
 			let etapa = Cronogramas.filter(c => c.etapa_id === etapa_id)[0]
 			etapa.revisao--
-				resolve(etapa)
+				resolve({
+					data: {
+						data: etapa,
+						status: 'success'
+					}
+				})
 		})
 	}
 
 	saveGantt(data) {
 		return new Promise((resolve, reject) => {
 			resolve({
-				title: 'Sucesso',
-				msg: 'Cronograma salvo com sucesso',
-				status: 'success'
+				data: {
+					data: 'Cronograma salvo com sucesso',
+					status: 'success'
+				}
 			})
 		})
 	}
