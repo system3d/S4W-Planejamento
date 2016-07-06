@@ -168,7 +168,6 @@ describe('API Service', () => {
 				$httpBackend.flush();
 				api.getEtapas(1)
 					.then(data => {
-						console.log(data);
 						expect(data.data).toEqual('Etapa Data')
 					})
 			})
