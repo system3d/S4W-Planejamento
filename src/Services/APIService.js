@@ -2,11 +2,12 @@ import _memoize from 'lodash/memoize'
 
 export default class APIService {
 	/*@ngInject*/
-	constructor($http, $location) {
+	constructor($http, $location, $window, base64) {
 		this.$http = $http
 		this.baseUrl = $location.protocol() + "://" + location.host + '/'
-		this.token = 'LYgwI4bfUYtxAmOCHezWoeFCn7DIzAZa1ZXBEjP5wlUKq3cQVIE7RyWUvgsI'
-
+		this.Decoder = base64
+		this.$window = $window
+		this.token = this.Decoder.decode(this.$window.theme_hash).split('').reverse().join('')
 		this.getGantt = _memoize((u, obra, etapa) => {
 			return this.$http({
 				url: this.baseUrl + 'planejamento/getGantt',
@@ -19,7 +20,7 @@ export default class APIService {
 			})
 		})
 
-		this.getCronogramas = _memoize((u) => {
+		this.getCronogramas = _memoize((u) => { // eslint-disable-line no-unused-vars
 			return this.$http({
 				url: this.baseUrl + 'planejamento/getCrono',
 				method: "POST",
@@ -113,4 +114,6 @@ export default class APIService {
 
 }
 
-APIService.$inject = ["$http", "$location"]
+APIService.$inject = ["$http", "$location", "$window", 'base64']
+
+// TODO: Get Tokerino

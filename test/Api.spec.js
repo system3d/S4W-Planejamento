@@ -2,9 +2,16 @@ import APIService from '../src/Services/APIService'
 
 describe('API Service', () => {
 	let api, $httpBackend;
+	window.theme_hash = 'SXNndlVXeVI3RUlWUWMzcUtVbHc1UGpFQlhaMWFaQXpJRDduQ0Zlb1d6ZUhDT21BeHRZVWZiNEl3Z1lM'
 
-	beforeEach(inject(function($http, $location, _$httpBackend_) {
-		api = new APIService($http, $location);
+	beforeEach(inject(function($http, $location, _$httpBackend_,$window) {
+		const baseMeiaQuatro = {
+			decode(v){
+				return v
+			}
+		}
+		api = new APIService($http, $location,$window, baseMeiaQuatro);
+
 	}));
 
 	beforeEach(inject(function($injector) {
@@ -23,6 +30,10 @@ describe('API Service', () => {
 		})
 		it('Should Have a baseUrl', () => {
 			expect(api.baseUrl).toBeDefined()
+		})
+		it('Should Have a token', () => {
+			let exp = 'Ml1Z3lENiZWVZRHeB12TDhUZ6d1blZ0QudDRJpXQaFWMahlQFpGU1cHbVtUczMWUWlUR3IVeXVldnNXS'
+			expect(api.token).toEqual(exp)
 		})
 	})
 

@@ -43,8 +43,8 @@ export default class CronoController {
 					this.CronogramasLegacy = angular.fromJson(angular.toJson(this.Cronogramas))
 					this.$scope.$digest()
 					resolve(true)
-				}).catch(err => {
-						flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....')
+				}).catch( () => {
+						flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
 				})
 		})
 	}
@@ -127,7 +127,6 @@ export default class CronoController {
 	sendRevisao() {
 		return new Promise((resolve, reject) => {
 			let touchedRevisions = this.Cronogramas.filter(c => c.touched)
-			console.log(touchedRevisions);
 			this.navService.saveRevision(touchedRevisions)
 				.then(() => {
 					resolve(true)
@@ -154,8 +153,7 @@ export default class CronoController {
 							this.changeReturned(n)
 							this.changeReturnedLegacy(n)
 						})
-						.catch((err) => {
-							console.log(err)
+						.catch(() => {
 							this.sweetalert.swal("Ooops...", "Erro ao Reverter Revisão", "error")
 						})
 				}
@@ -196,5 +194,3 @@ export default class CronoController {
 }
 
 CronoController.$inject = ['$scope', 'navService', 'SweetAlert']
-
-// TODO: Fix Cronograma format, make the cronograma array inside each obj be: {name: ..., id: ..., final: ..., inicio:...}

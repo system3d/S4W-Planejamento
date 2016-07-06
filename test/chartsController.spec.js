@@ -26,9 +26,9 @@ describe("Chart Controllers", () => {
 
 	describe("Avanco Controller", () => {
 
-		beforeEach(inject(($rootScope, $interval) => {
+		beforeEach(inject(($rootScope, $interval, $timeout) => {
 			$scope = $rootScope.$new()
-			ctrl = new AvancoController($scope, new mockNavService())
+			ctrl = new AvancoController($scope, new mockNavService(), $timeout)
 		}));
 
 		it('Should get the chart Avanco data', () => {
@@ -40,9 +40,9 @@ describe("Chart Controllers", () => {
 
 	describe("Entrega Controller", () => {
 
-		beforeEach(inject(($rootScope, $interval) => {
+		beforeEach(inject(($rootScope, $interval, $timeout) => {
 			$scope = $rootScope.$new()
-			ctrl = new EntregaController($scope, new mockNavService())
+			ctrl = new EntregaController($scope, new mockNavService(), $timeout)
 		}));
 
 		it('Should get the chart Avanco data', () => {

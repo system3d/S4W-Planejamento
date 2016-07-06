@@ -17,8 +17,8 @@ import AvancoController from './controllers/AvancoController'
 
 import navService from './Services/navService'
 
-import api from './Services/APIService'
-// import api from '../tools/API/API'
+// import api from './Services/APIService'
+import api from '../tools/API/API'
 
 // import cacheService from './Services/cacheService'
 
@@ -26,19 +26,14 @@ import bdDatepicker from './directives/bdDatepickerDirective'
 
 import './styles/animations.styl'
 import '../node_modules/angular-sweetalert/SweetAlert'
-// import '../node_modules/chart.js/dist/Chart.min'
-// import './plugins/chartjs/Chart.js'
 
-import 'angular-chart.js'
-
-// import 'npm-angular-chart'
-
-
-// import './plugins/angular-chart/angular-chart.min'
+import '../node_modules/highcharts-ng/dist/highcharts-ng'
 
 import './plugins/dirPagination'
 
-export default angular.module('app', [routing,gantt, 'oitozero.ngSweetAlert', 'angularUtils.directives.dirPagination', 'chart.js'])
+import 'angular-utf8-base64'
+
+export default angular.module('app', [routing,gantt, 'oitozero.ngSweetAlert', 'angularUtils.directives.dirPagination','highcharts-ng', 'utf8-base64'])
 	.config(config)
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)

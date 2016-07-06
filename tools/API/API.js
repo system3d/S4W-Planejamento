@@ -1,5 +1,28 @@
 import delay from './delay'
 
+const Obras = {
+	"status": '200',
+	"data": {
+		"status": "success",
+		"data": [{
+			id: 1,
+			nome: "TransVilmar"
+		}, {
+			id: 2,
+			nome: "Cascata cascavel"
+		}, {
+			id: 3,
+			nome: "Marcha Imperial"
+		}, {
+			id: 4,
+			nome: "Obra Legal"
+		}, {
+			id: 5,
+			nome: "Wish you were Potato"
+		}]
+	}
+}
+
 const GanttPlan = {
 	data: [{
 		id: "O2",
@@ -61,159 +84,7 @@ const GanttPlan = {
 	}]
 }
 
-const Gantt = {
-	data: [{
-		id: "E25",
-		text: "LOTE M4",
-		progress: 0,
-		dirty: "false",
-		open: false,
-		start_date: "19/03/2016",
-		end_date: "17/05/2016"
-	}, {
-		id: "E26",
-		text: "M1M3",
-		progress: 0,
-		dirty: "false",
-		open: false,
-		start_date: "31/12/2015",
-		end_date: "29/05/2016"
-	}, {
-		id: "T26x14",
-		text: "Preparação",
-		start_date: "31/12/2015",
-		end_date: "18/04/2016",
-		progress: 0,
-		bright: true,
-		open: false,
-		color: "rgb(255,140,0)",
-		parent: "E26"
-	}, {
-		id: "R26x14",
-		text: "Realizado",
-		progress: 0,
-		start_date: "21/03/2016",
-		end_date: "21/03/2016",
-		parent: "T26x14",
-		color: "rgb(12,255,0)",
-		bright: true
-	}, {
-		id: "T26x15",
-		text: "Gabarito",
-		start_date: "31/12/2015",
-		end_date: "25/04/2016",
-		progress: 0,
-		bright: false,
-		open: false,
-		color: "rgb(84,107,47)",
-		parent: "E26"
-	}, {
-		id: "R26x15",
-		text: "Realizado",
-		progress: 0,
-		start_date: "21/03/2016",
-		end_date: "21/03/2016",
-		parent: "T26x15",
-		color: "rgb(12,255,0)",
-		bright: true
-	}, {
-		id: "T26x16",
-		text: "Solda",
-		start_date: "31/12/2015",
-		end_date: "01/05/2016",
-		progress: 0,
-		bright: true,
-		open: false,
-		color: "rgb(0,255,0)",
-		parent: "E26"
-	}, {
-		id: "R26x16",
-		text: "Realizado",
-		progress: 0,
-		start_date: "21/03/2016",
-		end_date: "21/03/2016",
-		parent: "T26x16",
-		color: "rgb(12,255,0)",
-		bright: true
-	}, {
-		id: "T26x17",
-		text: "Pintura",
-		start_date: "31/12/2015",
-		end_date: "08/05/2016",
-		progress: 0,
-		bright: true,
-		open: false,
-		color: "rgb(64,224,207)",
-		parent: "E26"
-	}, {
-		id: "E28",
-		text: "M2M4",
-		progress: 0,
-		dirty: "false",
-		open: false,
-		start_date: "31/12/2015",
-		end_date: "01/09/2016"
-	}, {
-		id: "T28x14",
-		text: "Preparação",
-		start_date: "31/12/2015",
-		end_date: "01/05/2016",
-		progress: 0,
-		bright: true,
-		open: false,
-		color: "rgb(255,140,0)",
-		parent: "E28"
-	}, {
-		id: "R28x14",
-		text: "Realizado",
-		progress: 0,
-		start_date: "21/03/2016",
-		end_date: "21/03/2016",
-		parent: "T28x14",
-		color: "rgb(12,255,0)",
-		bright: true
-	}, {
-		id: "T28x15",
-		text: "Gabarito",
-		start_date: "31/12/2015",
-		end_date: "01/06/2016",
-		progress: 0,
-		bright: false,
-		open: false,
-		color: "rgb(84,107,47)",
-		parent: "E28"
-	}, {
-		id: "R28x15",
-		text: "Realizado",
-		progress: 0,
-		start_date: "21/03/2016",
-		end_date: "21/03/2016",
-		parent: "T28x15",
-		color: "rgb(12,255,0)",
-		bright: true
-	}, {
-		id: "T28x16",
-		text: "Solda",
-		start_date: "31/12/2015",
-		end_date: "01/07/2016",
-		progress: 0,
-		bright: true,
-		open: false,
-		color: "rgb(0,255,0)",
-		parent: "E28"
-	}, {
-		id: "R28x16",
-		text: "Realizado",
-		progress: 0,
-		start_date: "25/03/2016",
-		end_date: "25/03/2016",
-		parent: "T28x16",
-		color: "rgb(12,255,0)",
-		bright: true
-	}]
-}
-
-const Obras = {
+const ObrasB = {
 	status: "success",
 	data: [{
 		id: 1,
@@ -284,112 +155,128 @@ const Cronogramas = [{
 	etapa_id: 1,
 	etapa: 'T1',
 	revisao: 2,
-	cronograma: {
-		projeto: {
-			inicio: '2016-06-27',
-			final: '2016-07-12',
-			id: 1
+	cronograma: [
+		{
+			'inicio': '2016-06-27',
+			'final': '2016-07-12',
+			'id': 1,
+			'nome': 'Projeto'
 		},
-		fabricacao: {
-			inicio: '2016-08-27',
-			final: '2016-09-12',
-			id: 2
+		{
+			'inicio': '2016-08-27',
+			'final': '2016-09-12',
+			'id': 2,
+			'nome': 'Fabricação'
 		},
-		expedicao: {
-			inicio: '2016-10-27',
-			final: '2016-11-12',
-			id: 3
+		{
+			'inicio': '2016-10-27',
+			'final': '2016-11-12',
+			'id': 3,
+			'nome': 'Expedição'
 		},
-		montagem: {
-			inicio: '2016-12-27',
-			final: '2017-01-12',
-			id: 4
+		{
+			'inicio': '2016-12-27',
+			'final': '2017-01-12',
+			'id': 4,
+			'nome': 'Montagem'
 		}
-	}
+	]
 }, {
 	obra_id: 1,
 	obra: 'TransVilmar',
 	etapa: 'T2',
 	etapa_id: 2,
 	revisao: 4,
-	cronograma: {
-		projeto: {
-			inicio: '2016-06-27',
-			final: '2016-07-12',
-			id: 1
+	cronograma: [
+		{
+			'inicio': '2016-06-27',
+			'final': '2016-07-12',
+			'id': 1,
+			'nome': 'Projeto'
 		},
-		fabricacao: {
-			inicio: '2016-08-27',
-			final: '2016-09-12',
-			id: 2
+		{
+			'inicio': '2016-08-27',
+			'final': '2016-09-12',
+			'id': 2,
+			'nome': 'Fabricação'
 		},
-		expedicao: {
-			inicio: '2016-10-27',
-			final: '2016-11-12',
-			id: 3
+		{
+			'inicio': '2016-10-27',
+			'final': '2016-11-12',
+			'id': 3,
+			'nome': 'Expedição'
 		},
-		montagem: {
-			inicio: '2016-12-27',
-			final: '2017-01-12',
-			id: 4
+		{
+			'inicio': '2016-12-27',
+			'final': '2017-01-12',
+			'id': 4,
+			'nome': 'Montagem'
 		}
-	}
+	]
 }, {
 	obra_id: 2,
 	obra: "Cascata cascavel",
 	etapa_id: 3,
 	etapa: 'T3',
 	revisao: 1,
-	cronograma: {
-		projeto: {
-			inicio: '2016-06-27',
-			final: '2016-07-12',
-			id: 1
+	cronograma: [
+		{
+			'inicio': '2016-06-27',
+			'final': '2016-07-12',
+			'id': 1,
+			'nome': 'Projeto'
 		},
-		fabricacao: {
-			inicio: '2016-08-27',
-			final: '2016-09-12',
-			id: 2
+		{
+			'inicio': '2016-08-27',
+			'final': '2016-09-12',
+			'id': 2,
+			'nome': 'Fabricação'
 		},
-		expedicao: {
-			inicio: '2016-10-27',
-			final: '2016-11-12',
-			id: 3
+		{
+			'inicio': '2016-10-27',
+			'final': '2016-11-12',
+			'id': 3,
+			'nome': 'Expedição'
 		},
-		montagem: {
-			inicio: '2016-12-27',
-			final: '2017-01-12',
-			id: 4
+		{
+			'inicio': '2016-12-27',
+			'final': '2017-01-12',
+			'id': 4,
+			'nome': 'Montagem'
 		}
-	}
+	]
 }, {
 	obra_id: 5,
 	obra: "Wish you were Potato",
 	etapa_id: 10,
 	etapa: 'T8',
 	revisao: 0,
-	cronograma: {
-		projeto: {
-			inicio: null,
-			final: null,
-			id: 1
+	cronograma: [
+		{
+			'inicio': null,
+			'final': null,
+			'id': 1,
+			'nome': 'Projeto'
 		},
-		fabricacao: {
-			inicio: null,
-			final: null,
-			id: 2
+		{
+			'inicio': null,
+			'final': null,
+			'id': 2,
+			'nome': 'Fabricação'
 		},
-		expedicao: {
-			inicio: null,
-			final: null,
-			id: 3
+		{
+			'inicio': null,
+			'final': null,
+			'id': 3,
+			'nome': 'Expedição'
 		},
-		montagem: {
-			inicio: null,
-			final: null,
-			id: 4
+		{
+			'inicio': null,
+			'final': null,
+			'id': 4,
+			'nome': 'Montagem'
 		}
-	}
+	]
 }]
 
 import _memoize from 'lodash/memoize'
@@ -402,7 +289,11 @@ class API {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {
 					console.log('Api Gantt');
-					resolve(JSON.parse(JSON.stringify(GanttPlan)))
+					let Gat = {
+						"status": '200',
+						"data": GanttPlan
+					}
+					resolve(JSON.parse(JSON.stringify(Gat)))
 				}, delay);
 			})
 		})
@@ -423,8 +314,11 @@ class API {
 					}
 				})
 				let Cro = {
-					status: "success",
-					data: Cronos
+					"status": '200',
+					"data": {
+						"status": "success",
+						"data": Cronos
+					}
 				}
 				setTimeout(() => {
 					console.log('Api Cronos');
@@ -437,9 +331,14 @@ class API {
 			return new Promise((resolve, reject) => {
 				let Etaps = Etapas.data.filter((e) => e.obra_id === id)
 				let Eta = {
-					status: "success",
-					data: Etaps
+					"status": '200',
+					"data": {
+						"status": "success",
+						"data": Etaps
+					}
 				}
+
+
 				setTimeout(() => {
 					console.log('Api Etapas');
 					resolve(JSON.parse(JSON.stringify(Eta)))
@@ -450,14 +349,22 @@ class API {
 		this.getAvanco = _memoize((u, o, e, d) => {
 			return new Promise((resolve, reject) => {
 				console.log('Api Avanco');
-				resolve(this.generateRandomChart())
+				let Cha = {
+					"status": '200',
+					"data": this.generateRandomChart()
+				}
+				console.log(Cha);
+				resolve(Cha)
 			})
 		})
 
 		this.getEntrega = _memoize((u, o, e, d) => {
 			return new Promise((resolve, reject) => {
-				console.log('Api Entrega');
-				resolve(this.generateRandomChart())
+				let Cha = {
+					"status": '200',
+					"data": this.generateRandomChart()
+				}
+				resolve(Cha)
 			})
 		})
 
@@ -528,26 +435,12 @@ class API {
 		})
 	}
 
-	// getAvanco() {
-	// 	return new Promise((resolve, reject) => {
-	// 		resolve(this.generateRandomChart())
-	// 	})
-	// }
-
-	// getEntrega() {
-	// 	return new Promise((resolve, reject) => {
-	// 		resolve(this.generateRandomChart())
-	// 	})
-	// }
-
 	generateRandomChart() {
-		let a = [],
-			c = [];
+		let a = []
 		for (var i = 0; i < 4; i++) {
 			a.push(Math.floor(Math.random() * 90 + 10))
 		}
-		c.push(a)
-		return c
+		return a
 	}
 
 }

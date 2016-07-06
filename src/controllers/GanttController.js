@@ -7,7 +7,7 @@ export default class GanttController {
 		this.ganttData = []
 		this.loadGantt()
 		.catch( () => {
-			flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....')
+			flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
 		})
 		this.rootScope.$on('rloadGantt', () => {
 			this.reloadGantt()
@@ -45,7 +45,7 @@ export default class GanttController {
 				this.rootScope.$broadcast('GanttReload', this.ganttData);
 			})
 			.catch( () => {
-				flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....')
+				flashMessage('error','Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
 			})
 	}
 
