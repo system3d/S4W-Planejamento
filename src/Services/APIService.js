@@ -115,5 +115,3 @@ export default class APIService {
 }
 
 APIService.$inject = ["$http", "$location", "$window", 'base64']
-
-// TODO: Get Tokerino
