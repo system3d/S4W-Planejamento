@@ -163,7 +163,7 @@ export default class navService {
 	}
 
 	flags() {
-		return this.flag  
+		return this.flag
 	}
 
 	setFlags(obra, etapa, dates = null) {
@@ -184,6 +184,8 @@ export default class navService {
 			this.API.saveCronos(cronos).then(() => {
 				this.cronoUpdate++
 				this.ganttUpdate++
+				this.avancoUpdate++
+				this.entregaUpdate++
 					resolve(true)
 			}).catch(e => {
 				reject(e)
@@ -196,6 +198,8 @@ export default class navService {
 			this.API.returnRevision(etapa_id).then((novaEtapa) => {
 				this.cronoUpdate++
 				this.ganttUpdate++
+				this.avancoUpdate++
+				this.entregaUpdate++
 					resolve(novaEtapa.data.data)
 			}).catch(e => {
 				reject(e)

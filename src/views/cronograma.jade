@@ -13,43 +13,44 @@
     .side
 .box.box-primary.box-crono(ng-show='!crono.loading && !crono.loadError')
   .box-body
-    table.display.table.table-hover.stripe(cellspacing="0" width="100%")
-      thead
-        tr
-          th(ng-click='crono.sortBy("obra")', ng-class="{'sortingBy':crono.sort.literal === 'obra'}") Obra
-          th(ng-click='crono.sortBy("etapa")', ng-class="{'sortingBy':crono.sort.literal === 'etapa'}") Etapa
-          each val in ['Projeto', 'Fabricação', 'Expedição', 'Montagem']
-            th= val + " - Início"
-            th= val + " - Final"
-          th(ng-click='crono.sortBy("revisao")', ng-class="{'sortingBy':crono.sort.literal === 'revisao'}") Revisão
-          th 
-      tbody
-        tr(dir-paginate="cr in crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa} | orderBy: crono.sort.param : crono.sort.reverse | itemsPerPage: crono.perPage", ng-class='{touched: cr.touched}', ng-animate="'zoomIn'")
-          td [[cr.obra]]
-          td [[cr.etapa]]
-          td
-            bd-datepicker(ng-model='cr.cronograma[0].inicio', max-date="cr.cronograma[0].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td
-            bd-datepicker(ng-model='cr.cronograma[0].final', max-date="false", min-date='cr.cronograma[0].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td
-            bd-datepicker(ng-model='cr.cronograma[1].inicio', max-date="cr.cronograma[1].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td
-            bd-datepicker(ng-model='cr.cronograma[1].final', max-date="false", min-date='cr.cronograma[1].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td
-            bd-datepicker(ng-model='cr.cronograma[2].inicio', max-date="cr.cronograma[2].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td
-            bd-datepicker(ng-model='cr.cronograma[2].final', max-date="false", min-date='cr.cronograma[2].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td
-            bd-datepicker(ng-model='cr.cronograma[3].inicio', max-date="cr.cronograma[3].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td
-            bd-datepicker(ng-model='cr.cronograma[3].final', max-date="false", min-date='cr.cronograma[3].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
-          td(align='center') [[cr.revisao]]
-          td.have-hover(ng-if='cr.revisao > 1' align='center', data-toggle='tooltip', title='Voltar Revisão', data-placement='left', ng-click='crono.voltarRevisao(cr.etapa_id)') 
-            i.fa.fa-undo.text-red
-          td(ng-if='!(cr.revisao > 1)' align='center') 
-            i.fa.fa-undo.text-disabled
-        tr(ng-hide="(crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa}).length || !crono.Cronogramas.length")
-          td(colspan='12', align='center') Obra não Contêm Etapas
+    .table-responsive
+      table.display.table.table-hover.stripe(cellspacing="0" width="100%")
+        thead
+          tr
+            th(ng-click='crono.sortBy("obra")', ng-class="{'sortingBy':crono.sort.literal === 'obra'}") Obra
+            th(ng-click='crono.sortBy("etapa")', ng-class="{'sortingBy':crono.sort.literal === 'etapa'}") Etapa
+            each val in ['Projeto', 'Fabricação', 'Expedição', 'Montagem']
+              th= val + " - Início"
+              th= val + " - Final"
+            th(ng-click='crono.sortBy("revisao")', ng-class="{'sortingBy':crono.sort.literal === 'revisao'}") Revisão
+            th 
+        tbody
+          tr(dir-paginate="cr in crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa} | orderBy: crono.sort.param : crono.sort.reverse | itemsPerPage: crono.perPage", ng-class='{touched: cr.touched}', ng-animate="'zoomIn'")
+            td [[cr.obra]]
+            td [[cr.etapa]]
+            td
+              bd-datepicker(ng-model='cr.cronograma[0].inicio', max-date="cr.cronograma[0].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td
+              bd-datepicker(ng-model='cr.cronograma[0].final', max-date="false", min-date='cr.cronograma[0].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td
+              bd-datepicker(ng-model='cr.cronograma[1].inicio', max-date="cr.cronograma[1].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td
+              bd-datepicker(ng-model='cr.cronograma[1].final', max-date="false", min-date='cr.cronograma[1].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td
+              bd-datepicker(ng-model='cr.cronograma[2].inicio', max-date="cr.cronograma[2].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td
+              bd-datepicker(ng-model='cr.cronograma[2].final', max-date="false", min-date='cr.cronograma[2].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td
+              bd-datepicker(ng-model='cr.cronograma[3].inicio', max-date="cr.cronograma[3].final", min-date='false', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td
+              bd-datepicker(ng-model='cr.cronograma[3].final', max-date="false", min-date='cr.cronograma[3].inicio', bd-class="planejamento-input", bd-emit='cr.etapa_id')
+            td(align='center') [[cr.revisao]]
+            td.have-hover(ng-if='cr.revisao > 1' align='center', data-toggle='tooltip', title='Voltar Revisão', data-placement='left', ng-click='crono.voltarRevisao(cr.etapa_id)') 
+              i.fa.fa-undo.text-red
+            td(ng-if='!(cr.revisao > 1)' align='center') 
+              i.fa.fa-undo.text-disabled
+          tr(ng-hide="(crono.Cronogramas | filter:{obra_id:crono.filter.obra, etapa_id:crono.filter.etapa}).length || !crono.Cronogramas.length")
+            td(colspan='12', align='center') Obra não Contêm Etapas
   .box-footer
     .pull-right
       button.btn.btn-sm.btn-default.pull-left(ng-click='crono.resetCrono()', ng-disabled='!crono.touched', title='Desfazer Mudanças não Salvas')

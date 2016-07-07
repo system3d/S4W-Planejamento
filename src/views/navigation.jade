@@ -14,16 +14,17 @@
         .form-group(ng-show="main.active !== 'gantt' && main.active !== 'cronograma' ")
           span Até:&nbsp;
           bd-datepicker(ng-model='main.date.end', max-date="false", min-date='main.date.start', bd-class="input-sm")
-        .form-group 
+        .form-group.button-group
           button.btn.btn-sm.btn-primary(ng-click='main.load()', title='Carregar') Carregar
-        .form-group.pull-right(ng-show='main.active === "gantt"')
-          button.btn.btn-sm.btn-success(save-gantt,style='margin-right: 5px',title='Salvar Cronograma')
-            i.fa.fa-floppy-o
-            &nbsp; Salvar
-          button.btn.btn-sm.btn-primary(gantt-toggle,style='margin-right: 5px',title='Alternar Realizados')
-            i.fa.fa-caret-square-o-right
-          button.btn.btn-sm.btn-primary(zoom-out,style='margin-right: 5px')
-            i.fa.fa-search-plus
-          button.btn.btn-sm.btn-primary(zoom-in)
-            i.fa.fa-search-minus
+        .form-group.pull-right.gantt-group(ng-show='main.active === "gantt"')
+          .pull-right
+            button.btn.btn-sm.btn-success(save-gantt,style='margin-right: 5px',title='Salvar Cronograma')
+              i.fa.fa-floppy-o
+              &nbsp; Salvar
+            button.btn.btn-sm.btn-primary(gantt-toggle,style='margin-right: 5px',title='Alternar Realizados')
+              i.fa.fa-caret-square-o-right
+            button.btn.btn-sm.btn-primary(zoom-out,style='margin-right: 5px')
+              i.fa.fa-search-plus
+            button.btn.btn-sm.btn-primary(zoom-in)
+              i.fa.fa-search-minus
           
