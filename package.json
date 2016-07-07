@@ -12,7 +12,7 @@
     "lint": "node_modules/.bin/esw webpack.config.* src/**/*.js",
     "lint:watch": "npm run lint -- --watch",
     "build": "node_modules/.bin/webpack",
-    "commit": "git add --all && git commit -m'$M'  && git push origin master",
+    "commit": "git add --all && git commit -m'auto-commit' && git push origin master",
     "test:watch": "karma start",
     "dev": "npm-run-all --parallel test:watch lint:watch",
     "test": "karma start --single-run",
