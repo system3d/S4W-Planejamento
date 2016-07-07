@@ -163,7 +163,7 @@ export default class navService {
 	}
 
 	flags() {
-		return this.flag
+		return this.flag 
 	}
 
 	setFlags(obra, etapa, dates = null) {
