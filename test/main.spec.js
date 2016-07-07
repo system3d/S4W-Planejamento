@@ -9,14 +9,14 @@ describe('MainController', () => {
 	//   jasmineEventually.setup();
 	// });
 
-	beforeEach(inject(function($rootScope) {
+	beforeEach(inject(function($rootScope, $timeout) {
 		$location = {
 			url: () => {
 				return ''
 			}
 		}
 		$scope = $rootScope.$new()
-		ctrl = new MainController($location, $scope, new navService(new API()), $rootScope);
+		ctrl = new MainController($location, $scope, new navService(new API()), $rootScope, $timeout);
 
 	}));
 

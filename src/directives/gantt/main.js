@@ -271,6 +271,13 @@ export default class ganttDirective {
 			e.stopPropagation();
 		});
 
+		// $element[0].addEventListener('DOMMouseScroll', _onWheel.bind(this), false); // For FF and Opera
+		// $element[0].addEventListener('mousewheel', _onWheel.bind(this), false); // For others
+		//
+		// function _onWheel(e) {
+		// 	const which = (e.deltaY > 0) ? 'in' : 'out'
+		// 	this.$rootScope.$broadcast('ganttZoom', which);
+		// }
 
 		$scope.$watch('ganttData', (collection) => {
 			if (collection.length > 0 && !$scope.ganttDid) {

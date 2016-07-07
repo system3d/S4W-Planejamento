@@ -9,6 +9,8 @@ export default class navService {
 		}
 		this.cronoUpdate = 0
 		this.ganttUpdate = 0
+		this.entregaUpdate = 0
+		this.avancoUpdate = 0
 		this.date = {}
 		this.flag = 0
 		this.API = API
@@ -45,14 +47,19 @@ export default class navService {
 				return this.cronoUpdate
 			case 'gantt':
 				return base + this.ganttUpdate.toString()
-			case 'date':
-				return base + this.date.start + this.date.end
+			case 'avanco':
+				return base + this.date.start + this.date.end + this.avancoUpdate.toString()
+			case 'entrega':
+				return base + this.date.start + this.date.end + this.entregaUpdate.toString()
 			default:
 				return base
 		}
 	}
 
-	getGantt() {
+	getGantt(retry) {
+		if (retry) {
+			this.ganttUpdate++
+		}
 		return new Promise((resolve, reject) => {
 			this.API.getGantt(this.getUpdate('gantt'), this.obra.id, this.etapa.id)
 				.then(data => {
@@ -69,7 +76,7 @@ export default class navService {
 			this.API.saveGantt(data)
 				.then(r => {
 					this.ganttUpdate++
-					this.cronoUpdate++
+						this.cronoUpdate++
 						resolve(r.data)
 				})
 				.catch(err => {
@@ -78,9 +85,12 @@ export default class navService {
 		})
 	}
 
-	getAvanco() {
+	getAvanco(retry) {
+		if (retry) {
+			this.avancoUpdate++
+		}
 		return new Promise((resolve, reject) => {
-			this.API.getAvanco(this.getUpdate('date'), this.obra.id, this.etapa.id, this.date)
+			this.API.getAvanco(this.getUpdate('avanco'), this.obra.id, this.etapa.id, this.date)
 				.then(data => {
 					let res = data.data.map(d => parseInt(d))
 					resolve(res)
@@ -89,9 +99,12 @@ export default class navService {
 		})
 	}
 
-	getEntrega() {
+	getEntrega(retry) {
+		if (retry) {
+			this.entregaUpdate++
+		}
 		return new Promise((resolve, reject) => {
-			this.API.getEntrega(this.getUpdate('date'), this.obra.id, this.etapa.id, this.date)
+			this.API.getEntrega(this.getUpdate('entrega'), this.obra.id, this.etapa.id, this.date)
 				.then(data => {
 					let res = data.data.map(d => parseInt(d))
 					resolve(res)
@@ -115,6 +128,7 @@ export default class navService {
 		})
 	}
 
+// TODO: Refactor this fn(getEtapas) to retry on fails
 	getEtapas(id) {
 		return new Promise((resolve, reject) => {
 			this.API.getEtapas(id)
@@ -131,7 +145,7 @@ export default class navService {
 	}
 
 	getCronogramas(retry) {
-		if(retry){
+		if (retry) {
 			this.cronoUpdate++
 		}
 		return new Promise((resolve, reject) => {
@@ -169,6 +183,7 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.saveCronos(cronos).then(() => {
 				this.cronoUpdate++
+				this.ganttUpdate++
 					resolve(true)
 			}).catch(e => {
 				reject(e)
@@ -180,6 +195,7 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.returnRevision(etapa_id).then((novaEtapa) => {
 				this.cronoUpdate++
+				this.ganttUpdate++
 					resolve(novaEtapa.data.data)
 			}).catch(e => {
 				reject(e)

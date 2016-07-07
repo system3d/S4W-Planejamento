@@ -27,9 +27,9 @@ describe("Chart Controllers", () => {
 	}
 
 
-	beforeEach(inject(($rootScope, $interval) => {
+	beforeEach(inject(($rootScope, $interval, $timeout) => {
 		$scope = $rootScope.$new()
-		ctrl = new GanttController($scope, new mockNavServiceGantt(), $rootScope)
+		ctrl = new GanttController($scope, new mockNavServiceGantt(), $rootScope, $timeout)
 	}));
 
   describe("Constructor", () => {

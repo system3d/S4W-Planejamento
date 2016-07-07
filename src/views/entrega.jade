@@ -1,3 +1,16 @@
-.box.box-primary
+.box.box-widget#box-error-loading(ng-show='entrega.loadError')
+    i.fa.fa-chain-broken.fa-5x.text-red
+    h4 Erro ao Tentar Conexão com o Servidor. Tente Reiniciar seu Navegador.
+.box.box-widget#box-loading(ng-show='entrega.loading')
+  .loader(style='margin-top: 100px')
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+.box.box-primary(ng-show='!entrega.loading && !entrega.loadError')
   .box-body.chart-wrapper
-    highchart#avanco-chart(config="entrega.chartConfig")
+    highchart#entrega-chart(config="entrega.chartConfig")

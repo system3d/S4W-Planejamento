@@ -1,13 +1,15 @@
 import moment from 'moment'
 
 export default class MainController {
-	constructor($location, $scope, navService, $rootScope) {
+	constructor($location, $scope, navService, $rootScope, $timeout) {
 		let activeTemp = $location.url()
 		activeTemp = activeTemp.split('/')
-		activeTemp = activeTemp.length === 1 ? '' : activeTemp[1]
-		this.active = activeTemp === '' ? 'cronograma' : activeTemp
+		this.active = activeTemp.length === 1 ? 'cronograma' : activeTemp[1]
+		// this.active = activeTemp === '' ? 'cronograma' : activeTemp
 		this.$rootScope = $rootScope
+		this.$timeout = $timeout
 		this.transSide = 0
+		this.obrasRetriesAttempts = 0
 		this.obra = {
 			'id': 0,
 			'nome': 'Todas'
@@ -64,7 +66,7 @@ export default class MainController {
 	}
 
 	loadObras() {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			this.navService.getObras()
 				.then(obras => {
 					this.Obras = obras
@@ -76,8 +78,13 @@ export default class MainController {
 					this.$scope.$digest()
 					resolve(true)
 				})
-				.catch(err => {
-					reject(err)
+				.catch( () => {
+					if (this.obrasRetriesAttempts < 5) {
+						this.$timeout(() => {
+							this.loadObras()
+						}, 750);
+						this.obrasRetriesAttempts++
+					}
 				})
 		})
 	}
@@ -112,6 +119,4 @@ export default class MainController {
 
 }
 
-MainController.$inject = ['$location', '$scope', 'navService', '$rootScope']
-
-// TODO: Loading pre-Bootstrap
+MainController.$inject = ['$location', '$scope', 'navService', '$rootScope', '$timeout']

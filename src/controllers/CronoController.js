@@ -50,7 +50,7 @@ export default class CronoController {
 					this.loading = false
 					this.$scope.$digest()
 					resolve(true)
-				}).catch((err) => {
+				}).catch(() => {
 					if (this.retriesAttempt < 5) {
 						this.$timeout(() => {
 							this.loadCrono(true)

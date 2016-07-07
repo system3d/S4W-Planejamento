@@ -1,3 +1,16 @@
-.box.box-primary
+.box.box-widget#box-error-loading(ng-show='gantt.loadError')
+    i.fa.fa-chain-broken.fa-5x.text-red
+    h4 Erro ao Tentar Conexão com o Servidor. Tente Reiniciar seu Navegador.
+.box.box-widget#box-loading(ng-show='gantt.loading')
+  .loader(style='margin-top: 100px')
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+    .side
+.box.box-primary(ng-show='!gantt.loading && !gantt.loadError')
   .box-body
     div(dhx-gantt, gantt-data="gantt.ganttData", style="width:100%;min-height:600px;background:white")

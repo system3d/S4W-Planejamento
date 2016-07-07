@@ -331,13 +331,13 @@ class API {
 					"status": '200',
 					"data": this.generateRandomChart()
 				}
-				console.log(Cha);
 				resolve(Cha)
 			})
 		})
 
 		this.getEntrega = _memoize((u, o, e, d) => {
 			return new Promise((resolve, reject) => {
+				console.log('Api Entrega');
 				let Cha = {
 					"status": '200',
 					"data": this.generateRandomChart()
@@ -350,6 +350,7 @@ class API {
 
 	getObras() {
 		return new Promise((resolve, reject) => {
+			console.log('Api Obras');
 			setTimeout(() => {
 				resolve(JSON.parse(JSON.stringify(Obras)))
 			}, delay);

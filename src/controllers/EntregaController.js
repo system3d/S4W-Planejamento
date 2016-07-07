@@ -3,6 +3,10 @@ export default class EntregaController {
 	constructor($scope, navService, $timeout) {
 		this.$scope = $scope
 		this.navService = navService
+		this.$timeout = $timeout
+		this.retriesAttempt = 0
+		this.loadError = false
+		this.loading = true
 
 		$timeout(() => {
 			this.$scope.$broadcast('highchartsng.reflow')
@@ -62,8 +66,8 @@ export default class EntregaController {
 		}
 	}
 
-	loadData() {
-		this.navService.getEntrega()
+	loadData(retry) {
+		this.navService.getEntrega(retry)
 			.then(data => {
 				this.data = data
 				this.chartConfig.series[0].data = [{
@@ -79,11 +83,23 @@ export default class EntregaController {
 					name: 'Montagem',
 					y: data[3]
 				}]
+				this.retriesAttempt = 0
+				this.loadError = false
+				this.loading = false
 				this.$scope.$digest()
 				this.$scope.$broadcast('highchartsng.reflow');
 			})
 			.catch(() => {
-				flashMessage('error', 'Não foi possivel recuperar dados do servidor', 'Ooops....') // eslint-disable-line no-undef
+				if (this.retriesAttempt < 5) {
+					this.$timeout(() => {
+						this.loadData(true)
+					}, 750);
+					this.retriesAttempt = this.retriesAttempt + 1
+				} else {
+					this.loadError = true
+					this.loading = false
+					this.$scope.$digest()
+				}
 			})
 	}
 
