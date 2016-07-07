@@ -49,6 +49,9 @@ export default class AvancoController {
 			series: [{
 				name: 'Previsto',
 				data: []
+			},{
+				name: 'Realizado',
+				data: []
 			}],
 
 			title: {
@@ -86,6 +89,21 @@ export default class AvancoController {
 					name: 'Montagem',
 					y: data[3]
 				}]
+
+				this.chartConfig.series[1].data = [{
+					name: 'Projeto',
+					y: data[0]
+				}, {
+					name: 'Fabricação',
+					y: data[1]
+				}, {
+					name: 'Expedição',
+					y: data[2]
+				}, {
+					name: 'Montagem',
+					y: data[3]
+				}]
+
 				this.retriesAttempt = 0
 				this.loadError = false
 				this.loading = false
