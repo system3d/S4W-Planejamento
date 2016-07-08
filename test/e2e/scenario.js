@@ -29,7 +29,7 @@ describe('my app', function() {
 			expect(element.all(by.repeater('cr in crono.Cronogramas')).count()).toEqual(4);
 		})
 
-		it('Button Should Be Desabled', () => {
+		it('Button Should Be Disabled', () => {
 			let submit = element(by.css('.btn-success.pull-right'));
 			expect(submit.isEnabled()).toBe(false);
 		})

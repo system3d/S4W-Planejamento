@@ -421,11 +421,17 @@ class API {
 	}
 
 	generateRandomChart() {
-		let a = []
+		let a = [],
+			b = [],
+			c = []
 		for (var i = 0; i < 4; i++) {
 			a.push(Math.floor(Math.random() * 90 + 10))
+			b.push(Math.floor(Math.random() * 90 + 10))
 		}
-		return a
+		return {
+			plan: a,
+			real: b
+		}
 	}
 
 }

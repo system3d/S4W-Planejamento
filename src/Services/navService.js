@@ -92,8 +92,7 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.getAvanco(this.getUpdate('avanco'), this.obra.id, this.etapa.id, this.date)
 				.then(data => {
-					let res = data.data.map(d => parseInt(d))
-					resolve(res)
+					resolve(data.data)
 				})
 				.catch(err => reject(err))
 		})
@@ -106,8 +105,7 @@ export default class navService {
 		return new Promise((resolve, reject) => {
 			this.API.getEntrega(this.getUpdate('entrega'), this.obra.id, this.etapa.id, this.date)
 				.then(data => {
-					let res = data.data.map(d => parseInt(d))
-					resolve(res)
+					resolve(data.data)
 				})
 				.catch(err => reject(err))
 		})

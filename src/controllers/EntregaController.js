@@ -46,10 +46,13 @@ export default class EntregaController {
 			series: [{
 				name: 'Previsto',
 				data: []
+			},{
+				name: 'Realizado',
+				data: []
 			}],
 
 			title: {
-				text: 'Gráfico de Entrega - Planejamento'
+				text: ''
 			},
 
 			xAxis: {
@@ -72,17 +75,32 @@ export default class EntregaController {
 				this.data = data
 				this.chartConfig.series[0].data = [{
 					name: 'Projeto',
-					y: data[0]
+					y: parseInt(data.plan[0])
 				}, {
 					name: 'Fabricação',
-					y: data[1]
+					y: parseInt(data.plan[1])
 				}, {
 					name: 'Expedição',
-					y: data[2]
+					y: parseInt(data.plan[2])
 				}, {
 					name: 'Montagem',
-					y: data[3]
+					y: parseInt(data.plan[3])
 				}]
+
+				this.chartConfig.series[1].data = [{
+					name: 'Projeto',
+					y: parseInt(data.real[0])
+				}, {
+					name: 'Fabricação',
+					y: parseInt(data.real[1])
+				}, {
+					name: 'Expedição',
+					y: parseInt(data.real[2])
+				}, {
+					name: 'Montagem',
+					y: parseInt(data.real[3])
+				}]
+
 				this.retriesAttempt = 0
 				this.loadError = false
 				this.loading = false
