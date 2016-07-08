@@ -4,13 +4,13 @@ describe('API Service', () => {
 	let api, $httpBackend;
 	window.theme_hash = 'SXNndlVXeVI3RUlWUWMzcUtVbHc1UGpFQlhaMWFaQXpJRDduQ0Zlb1d6ZUhDT21BeHRZVWZiNEl3Z1lM'
 
-	beforeEach(inject(function($http, $location, _$httpBackend_, $window) {
+	beforeEach(inject(function($http, _$httpBackend_, $window) {
 		const baseMeiaQuatro = {
 			decode(v) {
 				return v
 			}
 		}
-		api = new APIService($http, $location, $window, baseMeiaQuatro);
+		api = new APIService($http, $window, baseMeiaQuatro);
 
 	}));
 

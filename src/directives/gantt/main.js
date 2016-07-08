@@ -31,7 +31,7 @@ export default class ganttDirective {
 			end = starto.setDate(starto.getDate() + task.duration);
 			let endo = new Date(end);
 			let termino = moment(endo).format("DD/MM/YYYY");
-			return task.text + "<br/><b>Começo:</b> " + start + "<br/><b>Previsão de Término:</b> " + termino;
+			return task.text + "<br/><b>Começo:</b> " + start + "<br/><b>Término:</b> " + termino;
 		};
 
 		gantt.config.round_dnd_dates = false;

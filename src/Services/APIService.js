@@ -2,11 +2,11 @@ import _memoize from 'lodash/memoize'
 
 export default class APIService {
 	/*@ngInject*/
-	constructor($http, $location, $window, base64) {
+	constructor($http, $window, base64) {
 		this.$http = $http
-		this.baseUrl = $location.protocol() + "://" + location.host + '/'
 		this.Decoder = base64
 		this.$window = $window
+		this.baseUrl = this.$window.urlbaseGeral + '/'
 		this.token = this.Decoder.decode(this.$window.theme_hash).split('').reverse().join('')
 		this.getGantt = _memoize((u, obra, etapa) => {
 			return this.$http({
@@ -114,4 +114,4 @@ export default class APIService {
 
 }
 
-APIService.$inject = ["$http", "$location", "$window", 'base64']
+APIService.$inject = ["$http", "$window", 'base64']
